@@ -8,8 +8,8 @@ We have provide HAL browser to walk through available API.
 **Running Applcation**
 In project root directory run following command
 
-# mvn package
-# "java -jar target/fpr-api-0.0.1-SNAPSHOT.jar"
+- mvn package
+- "java -jar target/fpr-api-0.0.1-SNAPSHOT.jar"
 
 or through maven goal
 - mvn spring-boot:run
