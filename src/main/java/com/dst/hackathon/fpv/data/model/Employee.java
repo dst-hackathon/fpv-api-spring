@@ -1,36 +1,50 @@
 package com.dst.hackathon.fpv.data.model;
 
+import com.dst.hackathon.fpv.data.model.enums.BusinessUnit;
+
 import javax.persistence.*;
 
 /**
  * Created by Seph on 21/10/2559.
  */
 
-@Entity
+@Entity(name = "EMPLOYEE")
+@Table(name = "EMPLOYEE",
+        indexes = {
+                @Index(name = "EMP_ID_INDEX", columnList = "employee_id")
+        })
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "employee_id", unique = true)
+    @Column(name = "employee_id", unique = true, nullable = false)
     private String employeeId;
 
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column
     private String nickName;
 
+    @Column
     private String photoUrl;
 
-    private String businessUnit; //Class
+    @Column
+    private BusinessUnit businessUnit;
 
+    @Column
     private String jobPosition;
 
-    private String phoneExtension; //Class
+    @OneToOne(fetch = FetchType.LAZY)
+    private Phone phone;
 
-    private String deskCode; //Class
+    @OneToOne(fetch = FetchType.LAZY)
+    private Desk desk;
 
     public long getId() {
         return id;
@@ -80,11 +94,11 @@ public class Employee {
         this.photoUrl = photoUrl;
     }
 
-    public String getBusinessUnit() {
+    public BusinessUnit getBusinessUnit() {
         return businessUnit;
     }
 
-    public void setBusinessUnit(String businessUnit) {
+    public void setBusinessUnit(BusinessUnit businessUnit) {
         this.businessUnit = businessUnit;
     }
 
@@ -96,19 +110,19 @@ public class Employee {
         this.jobPosition = jobPosition;
     }
 
-    public String getPhoneExtension() {
-        return phoneExtension;
+    public Phone getPhone() {
+        return phone;
     }
 
-    public void setPhoneExtension(String phoneExtension) {
-        this.phoneExtension = phoneExtension;
+    public void setPhone(Phone phone) {
+        this.phone = phone;
     }
 
-    public String getDeskCode() {
-        return deskCode;
+    public Desk getDesk() {
+        return desk;
     }
 
-    public void setDeskCode(String deskCode) {
-        this.deskCode = deskCode;
+    public void setDesk(Desk desk) {
+        this.desk = desk;
     }
 }
