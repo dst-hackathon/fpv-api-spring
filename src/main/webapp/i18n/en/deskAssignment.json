@@ -1,0 +1,24 @@
+{
+    "fpvApp": {
+        "deskAssignment" : {
+            "home": {
+                "title": "Desk Assignments",
+                "createLabel": "Create a new Desk Assignment",
+                "createOrEditLabel": "Create or edit a Desk Assignment",
+                "search": "Search for Desk Assignment"
+            },
+            "created": "A new Desk Assignment is created with identifier {{ param }}",
+            "updated": "A Desk Assignment is updated with identifier {{ param }}",
+            "deleted": "A Desk Assignment is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Desk Assignment {{ id }}?"
+            },
+            "detail": {
+                "title": "Desk Assignment"
+            },
+            "desk": "Desk",
+            "plan": "Plan",
+            "employee": "Employee"
+        }
+    }
+}

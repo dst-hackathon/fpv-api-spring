@@ -1,0 +1,24 @@
+{
+    "fpvApp": {
+        "floor" : {
+            "home": {
+                "title": "Floors",
+                "createLabel": "Create a new Floor",
+                "createOrEditLabel": "Create or edit a Floor",
+                "search": "Search for Floor"
+            },
+            "created": "A new Floor is created with identifier {{ param }}",
+            "updated": "A Floor is updated with identifier {{ param }}",
+            "deleted": "A Floor is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Floor {{ id }}?"
+            },
+            "detail": {
+                "title": "Floor"
+            },
+            "name": "Name",
+            "plan": "Plan",
+            "desk": "Desk"
+        }
+    }
+}

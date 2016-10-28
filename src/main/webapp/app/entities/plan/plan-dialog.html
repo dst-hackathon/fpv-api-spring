@@ -1,0 +1,70 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPlanLabel" data-translate="fpvApp.plan.home.createOrEditLabel">Create or edit a Plan</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.plan.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.plan.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.plan.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.plan.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setImage($file, vm.plan)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="fpvApp.plan.image" for="field_image">Image</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.plan.imageContentType + ';base64,' + vm.plan.image}}" style="max-height: 100px;" ng-if="vm.plan.image"/>
+                <div ng-if="vm.plan.image" class="help-block clearfix">
+                    <span class="pull-left">{{vm.plan.imageContentType}}, {{vm.byteSize(vm.plan.image)}}</span>
+                    <button type="button" ng-click="vm.plan.image=null;vm.plan.imageContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setImage($file, vm.plan)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="image" id="field_image"
+                    ng-model="vm.plan.image"
+                     />
+            <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                    ng-model="vm.plan.imageContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.plan.effectiveDate" for="field_effectiveDate">Effective Date</label>
+                <div class="input-group">
+                    <input id="field_effectiveDate" type="text" class="form-control" name="effectiveDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.plan.effectiveDate" is-open="vm.datePickerOpenStatus.effectiveDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('effectiveDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

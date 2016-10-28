@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span data-translate="fpvApp.plan.detail.title">Plan</span> {{vm.plan.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="fpvApp.plan.name">Name</span></dt>
+        <dd>
+            <span>{{vm.plan.name}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.plan.image">Image</span></dt>
+        <dd>
+            <div ng-if="vm.plan.image">
+                <a ng-click="vm.openFile(vm.plan.imageContentType, vm.plan.image)">
+                    <img data-ng-src="{{'data:' + vm.plan.imageContentType + ';base64,' + vm.plan.image}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.plan.imageContentType}}, {{vm.byteSize(vm.plan.image)}}
+            </div>
+        </dd>
+        <dt><span data-translate="fpvApp.plan.effectiveDate">Effective Date</span></dt>
+        <dd>
+            <span>{{vm.plan.effectiveDate | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="plan-detail.edit({id:vm.plan.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
