@@ -1,0 +1,40 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "floor",
+            "otherEntityName": "floor",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "plan"
+        },
+        {
+            "relationshipName": "deskAssignment",
+            "otherEntityName": "deskAssignment",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "plan"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "effectiveDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20161028140956",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "plan",
+    "pagination": "pager"
+}

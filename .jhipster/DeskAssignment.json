@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "desk",
+            "otherEntityName": "desk",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "code"
+        },
+        {
+            "relationshipName": "plan",
+            "otherEntityName": "plan",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "code"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20161028144011",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "desk_assignment",
+    "pagination": "pager"
+}

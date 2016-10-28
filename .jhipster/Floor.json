@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "plan",
+            "otherEntityName": "plan",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "desk",
+            "otherEntityName": "desk",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "floor"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20161028141233",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "floor",
+    "pagination": "pager"
+}
