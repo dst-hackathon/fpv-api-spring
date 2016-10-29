@@ -20,7 +20,6 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span data-translate="fpvApp.plan.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="image"><span data-translate="fpvApp.plan.image">Image</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="effectiveDate"><span data-translate="fpvApp.plan.effectiveDate">Effective Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -29,12 +28,6 @@
                 <tr ng-repeat="plan in vm.plans track by plan.id">
                     <td><a ui-sref="plan-detail({id:plan.id})">{{plan.id}}</a></td>
                     <td>{{plan.name}}</td>
-                    <td>
-                        <a ng-if="plan.image" ng-click="vm.openFile(plan.imageContentType, plan.image)">
-                            <img data-ng-src="{{'data:' + plan.imageContentType + ';base64,' + plan.image}}" style="max-height: 30px;"/>
-                        </a>
-                        <span ng-if="plan.image">{{plan.imageContentType}}, {{vm.byteSize(plan.image)}}</span>
-                    </td>
                         <td>{{plan.effectiveDate | date:'mediumDate'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

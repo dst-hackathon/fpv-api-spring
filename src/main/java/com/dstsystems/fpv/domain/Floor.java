@@ -26,8 +26,15 @@ public class Floor implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
     @ManyToOne
-    private Plan plan;
+    private Building building;
 
     @OneToMany(mappedBy = "floor")
     @JsonIgnore
@@ -54,17 +61,43 @@ public class Floor implements Serializable {
         this.name = name;
     }
 
-    public Plan getPlan() {
-        return plan;
+    public byte[] getImage() {
+        return image;
     }
 
-    public Floor plan(Plan plan) {
-        this.plan = plan;
+    public Floor image(byte[] image) {
+        this.image = image;
         return this;
     }
 
-    public void setPlan(Plan plan) {
-        this.plan = plan;
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return imageContentType;
+    }
+
+    public Floor imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public Floor building(Building building) {
+        this.building = building;
+        return this;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
     public Set<Desk> getDesks() {
@@ -117,6 +150,8 @@ public class Floor implements Serializable {
         return "Floor{" +
             "id=" + id +
             ", name='" + name + "'" +
+            ", image='" + image + "'" +
+            ", imageContentType='" + imageContentType + "'" +
             '}';
     }
 }

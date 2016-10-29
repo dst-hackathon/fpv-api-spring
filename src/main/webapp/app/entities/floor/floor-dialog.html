@@ -25,10 +25,32 @@
                 </p>
             </div>
         </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setImage($file, vm.floor)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="fpvApp.floor.image" for="field_image">Image</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.floor.imageContentType + ';base64,' + vm.floor.image}}" style="max-height: 100px;" ng-if="vm.floor.image"/>
+                <div ng-if="vm.floor.image" class="help-block clearfix">
+                    <span class="pull-left">{{vm.floor.imageContentType}}, {{vm.byteSize(vm.floor.image)}}</span>
+                    <button type="button" ng-click="vm.floor.image=null;vm.floor.imageContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setImage($file, vm.floor)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="image" id="field_image"
+                    ng-model="vm.floor.image"
+                     />
+            <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                    ng-model="vm.floor.imageContentType" />
+        </div>
 
         <div class="form-group">
-            <label data-translate="fpvApp.floor.plan" for="field_plan">Plan</label>
-            <select class="form-control" id="field_plan" name="plan" ng-model="vm.floor.plan" ng-options="plan as plan.name for plan in vm.plans track by plan.id">
+            <label data-translate="fpvApp.floor.building" for="field_building">Building</label>
+            <select class="form-control" id="field_building" name="building" ng-model="vm.floor.building" ng-options="building as building.name for building in vm.buildings track by building.id">
                 <option value=""></option>
             </select>
         </div>

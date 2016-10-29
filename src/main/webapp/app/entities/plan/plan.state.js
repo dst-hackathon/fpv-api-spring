@@ -125,8 +125,6 @@
                         entity: function () {
                             return {
                                 name: null,
-                                image: null,
-                                imageContentType: null,
                                 effectiveDate: null,
                                 id: null
                             };

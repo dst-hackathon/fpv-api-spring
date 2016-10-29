@@ -3,11 +3,11 @@
 
     angular
         .module('fpvApp')
-        .controller('FloorController', FloorController);
+        .controller('BuildingController', BuildingController);
 
-    FloorController.$inject = ['$scope', '$state', 'DataUtils', 'Floor', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    BuildingController.$inject = ['$scope', '$state', 'Building', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function FloorController ($scope, $state, DataUtils, Floor, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function BuildingController ($scope, $state, Building, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         
         vm.loadPage = loadPage;
@@ -15,13 +15,11 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-        vm.openFile = DataUtils.openFile;
-        vm.byteSize = DataUtils.byteSize;
 
         loadAll();
 
         function loadAll () {
-            Floor.query({
+            Building.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
                 sort: sort()
@@ -37,7 +35,7 @@
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;
-                vm.floors = data;
+                vm.buildings = data;
                 vm.page = pagingParams.page;
             }
             function onError(error) {

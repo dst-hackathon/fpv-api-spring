@@ -1,13 +1,13 @@
 <div>
-    <h2 data-translate="fpvApp.floor.home.title">Floors</h2>
+    <h2 data-translate="fpvApp.building.home.title">Buildings</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="floor.new" >
+                <button class="btn btn-primary" ui-sref="building.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span  data-translate="fpvApp.floor.home.createLabel">
-                        Create new Floor
+                    <span  data-translate="fpvApp.building.home.createLabel">
+                        Create new Building
                     </span>
                 </button>
             </div>
@@ -19,41 +19,34 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="name"><span data-translate="fpvApp.floor.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="image"><span data-translate="fpvApp.floor.image">Image</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="building.name"><span data-translate="fpvApp.floor.building">Building</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span data-translate="fpvApp.building.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="plan.name"><span data-translate="fpvApp.building.plan">Plan</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="floor in vm.floors track by floor.id">
-                    <td><a ui-sref="floor-detail({id:floor.id})">{{floor.id}}</a></td>
-                    <td>{{floor.name}}</td>
+                <tr ng-repeat="building in vm.buildings track by building.id">
+                    <td><a ui-sref="building-detail({id:building.id})">{{building.id}}</a></td>
+                    <td>{{building.name}}</td>
                     <td>
-                        <a ng-if="floor.image" ng-click="vm.openFile(floor.imageContentType, floor.image)">
-                            <img data-ng-src="{{'data:' + floor.imageContentType + ';base64,' + floor.image}}" style="max-height: 30px;"/>
-                        </a>
-                        <span ng-if="floor.image">{{floor.imageContentType}}, {{vm.byteSize(floor.image)}}</span>
-                    </td>
-                    <td>
-                        <a ui-sref="building-detail({id:floor.building.id})">{{floor.building.name}}</a>
+                        <a ui-sref="plan-detail({id:building.plan.id})">{{building.plan.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="floor-detail({id:floor.id})"
+                                    ui-sref="building-detail({id:building.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="floor.edit({id:floor.id})"
+                                    ui-sref="building.edit({id:building.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="floor.delete({id:floor.id})"
+                                    ui-sref="building.delete({id:building.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>

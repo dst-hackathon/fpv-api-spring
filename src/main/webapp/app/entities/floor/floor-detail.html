@@ -8,9 +8,18 @@
         <dd>
             <span>{{vm.floor.name}}</span>
         </dd>
-        <dt><span data-translate="fpvApp.floor.plan">Plan</span></dt>
+        <dt><span data-translate="fpvApp.floor.image">Image</span></dt>
         <dd>
-            <a ui-sref="plan-detail({id:vm.floor.plan.id})">{{vm.floor.plan.name}}</a>
+            <div ng-if="vm.floor.image">
+                <a ng-click="vm.openFile(vm.floor.imageContentType, vm.floor.image)">
+                    <img data-ng-src="{{'data:' + vm.floor.imageContentType + ';base64,' + vm.floor.image}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.floor.imageContentType}}, {{vm.byteSize(vm.floor.image)}}
+            </div>
+        </dd>
+        <dt><span data-translate="fpvApp.floor.building">Building</span></dt>
+        <dd>
+            <a ui-sref="building-detail({id:vm.floor.building.id})">{{vm.floor.building.name}}</a>
         </dd>
     </dl>
 

@@ -10,9 +10,11 @@
     <include file="classpath:config/liquibase/changelog/20161028141858_added_entity_Desk.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161028143312_added_entity_Employee.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161028144011_added_entity_DeskAssignment.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161029110550_added_entity_Building.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20161028141233_added_entity_constraints_Floor.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161028141858_added_entity_constraints_Desk.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161028144011_added_entity_constraints_DeskAssignment.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161029110550_added_entity_constraints_Building.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

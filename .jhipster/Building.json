@@ -2,16 +2,16 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "building",
-            "otherEntityName": "building",
+            "relationshipName": "plan",
+            "otherEntityName": "plan",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
         },
         {
-            "relationshipName": "desk",
-            "otherEntityName": "desk",
+            "relationshipName": "floor",
+            "otherEntityName": "floor",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "floor"
+            "otherEntityRelationshipName": "building"
         }
     ],
     "fields": [
@@ -21,16 +21,11 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "image",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
         }
     ],
-    "changelogDate": "20161028141233",
+    "changelogDate": "20161029110550",
     "dto": "no",
     "service": "serviceClass",
-    "entityTableName": "floor",
+    "entityTableName": "building",
     "pagination": "pager"
 }

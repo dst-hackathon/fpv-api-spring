@@ -2,8 +2,8 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "floor",
-            "otherEntityName": "floor",
+            "relationshipName": "building",
+            "otherEntityName": "building",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "plan"
         },
@@ -21,11 +21,6 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "image",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
         },
         {
             "fieldName": "effectiveDate",

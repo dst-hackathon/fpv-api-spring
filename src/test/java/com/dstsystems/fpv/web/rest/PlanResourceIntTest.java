@@ -20,7 +20,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -44,11 +43,6 @@ public class PlanResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAA";
     private static final String UPDATED_NAME = "BBBBB";
-
-    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     private static final LocalDate DEFAULT_EFFECTIVE_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_EFFECTIVE_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -91,8 +85,6 @@ public class PlanResourceIntTest {
     public static Plan createEntity(EntityManager em) {
         Plan plan = new Plan()
                 .name(DEFAULT_NAME)
-                .image(DEFAULT_IMAGE)
-                .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
                 .effectiveDate(DEFAULT_EFFECTIVE_DATE);
         return plan;
     }
@@ -119,8 +111,6 @@ public class PlanResourceIntTest {
         assertThat(plans).hasSize(databaseSizeBeforeCreate + 1);
         Plan testPlan = plans.get(plans.size() - 1);
         assertThat(testPlan.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testPlan.getImage()).isEqualTo(DEFAULT_IMAGE);
-        assertThat(testPlan.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testPlan.getEffectiveDate()).isEqualTo(DEFAULT_EFFECTIVE_DATE);
     }
 
@@ -154,8 +144,6 @@ public class PlanResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(plan.getId().intValue())))
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-                .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
                 .andExpect(jsonPath("$.[*].effectiveDate").value(hasItem(DEFAULT_EFFECTIVE_DATE.toString())));
     }
 
@@ -171,8 +159,6 @@ public class PlanResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(plan.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.effectiveDate").value(DEFAULT_EFFECTIVE_DATE.toString()));
     }
 
@@ -196,8 +182,6 @@ public class PlanResourceIntTest {
         Plan updatedPlan = planRepository.findOne(plan.getId());
         updatedPlan
                 .name(UPDATED_NAME)
-                .image(UPDATED_IMAGE)
-                .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
                 .effectiveDate(UPDATED_EFFECTIVE_DATE);
 
         restPlanMockMvc.perform(put("/api/plans")
@@ -210,8 +194,6 @@ public class PlanResourceIntTest {
         assertThat(plans).hasSize(databaseSizeBeforeUpdate);
         Plan testPlan = plans.get(plans.size() - 1);
         assertThat(testPlan.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testPlan.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testPlan.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testPlan.getEffectiveDate()).isEqualTo(UPDATED_EFFECTIVE_DATE);
     }
 

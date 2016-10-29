@@ -20,6 +20,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -41,6 +42,11 @@ public class FloorResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAA";
     private static final String UPDATED_NAME = "BBBBB";
+
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(2, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     @Inject
     private FloorRepository floorRepository;
@@ -79,7 +85,9 @@ public class FloorResourceIntTest {
      */
     public static Floor createEntity(EntityManager em) {
         Floor floor = new Floor()
-                .name(DEFAULT_NAME);
+                .name(DEFAULT_NAME)
+                .image(DEFAULT_IMAGE)
+                .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         return floor;
     }
 
@@ -105,6 +113,8 @@ public class FloorResourceIntTest {
         assertThat(floors).hasSize(databaseSizeBeforeCreate + 1);
         Floor testFloor = floors.get(floors.size() - 1);
         assertThat(testFloor.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testFloor.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testFloor.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -136,7 +146,9 @@ public class FloorResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(floor.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+                .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+                .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
     }
 
     @Test
@@ -150,7 +162,9 @@ public class FloorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(floor.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
     }
 
     @Test
@@ -172,7 +186,9 @@ public class FloorResourceIntTest {
         // Update the floor
         Floor updatedFloor = floorRepository.findOne(floor.getId());
         updatedFloor
-                .name(UPDATED_NAME);
+                .name(UPDATED_NAME)
+                .image(UPDATED_IMAGE)
+                .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restFloorMockMvc.perform(put("/api/floors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -184,6 +200,8 @@ public class FloorResourceIntTest {
         assertThat(floors).hasSize(databaseSizeBeforeUpdate);
         Floor testFloor = floors.get(floors.size() - 1);
         assertThat(testFloor.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testFloor.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testFloor.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test

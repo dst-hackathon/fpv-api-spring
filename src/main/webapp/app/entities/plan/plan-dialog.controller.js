@@ -5,19 +5,17 @@
         .module('fpvApp')
         .controller('PlanDialogController', PlanDialogController);
 
-    PlanDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Plan', 'Floor', 'DeskAssignment'];
+    PlanDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Plan', 'Building', 'DeskAssignment'];
 
-    function PlanDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, Plan, Floor, DeskAssignment) {
+    function PlanDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Plan, Building, DeskAssignment) {
         var vm = this;
 
         vm.plan = entity;
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
-        vm.byteSize = DataUtils.byteSize;
-        vm.openFile = DataUtils.openFile;
         vm.save = save;
-        vm.floors = Floor.query();
+        vm.buildings = Building.query();
         vm.deskassignments = DeskAssignment.query();
 
         $timeout(function (){
@@ -47,20 +45,6 @@
             vm.isSaving = false;
         }
 
-
-        vm.setImage = function ($file, plan) {
-            if ($file && $file.$error === 'pattern') {
-                return;
-            }
-            if ($file) {
-                DataUtils.toBase64($file, function(base64Data) {
-                    $scope.$apply(function() {
-                        plan.image = base64Data;
-                        plan.imageContentType = $file.type;
-                    });
-                });
-            }
-        };
         vm.datePickerOpenStatus.effectiveDate = false;
 
         function openCalendar (date) {

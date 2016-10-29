@@ -5,15 +5,17 @@
         .module('fpvApp')
         .controller('FloorDialogController', FloorDialogController);
 
-    FloorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Floor', 'Plan', 'Desk'];
+    FloorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Floor', 'Building', 'Desk'];
 
-    function FloorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Floor, Plan, Desk) {
+    function FloorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, Floor, Building, Desk) {
         var vm = this;
 
         vm.floor = entity;
         vm.clear = clear;
+        vm.byteSize = DataUtils.byteSize;
+        vm.openFile = DataUtils.openFile;
         vm.save = save;
-        vm.plans = Plan.query();
+        vm.buildings = Building.query();
         vm.desks = Desk.query();
 
         $timeout(function (){
@@ -43,6 +45,20 @@
             vm.isSaving = false;
         }
 
+
+        vm.setImage = function ($file, floor) {
+            if ($file && $file.$error === 'pattern') {
+                return;
+            }
+            if ($file) {
+                DataUtils.toBase64($file, function(base64Data) {
+                    $scope.$apply(function() {
+                        floor.image = base64Data;
+                        floor.imageContentType = $file.type;
+                    });
+                });
+            }
+        };
 
     }
 })();

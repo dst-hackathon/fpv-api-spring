@@ -12,6 +12,7 @@
                 "desk": "Desk",
                 "employee": "Employee",
                 "deskAssignment": "Desk Assignment",
+                "building": "Building",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

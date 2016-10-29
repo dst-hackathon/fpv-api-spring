@@ -27,19 +27,12 @@ public class Plan implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
-
-    @Column(name = "image_content_type")
-    private String imageContentType;
-
     @Column(name = "effective_date")
     private LocalDate effectiveDate;
 
     @OneToMany(mappedBy = "plan")
     @JsonIgnore
-    private Set<Floor> floors = new HashSet<>();
+    private Set<Building> buildings = new HashSet<>();
 
     @OneToMany(mappedBy = "plan")
     @JsonIgnore
@@ -66,32 +59,6 @@ public class Plan implements Serializable {
         this.name = name;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public Plan image(byte[] image) {
-        this.image = image;
-        return this;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return imageContentType;
-    }
-
-    public Plan imageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-        return this;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-    }
-
     public LocalDate getEffectiveDate() {
         return effectiveDate;
     }
@@ -105,29 +72,29 @@ public class Plan implements Serializable {
         this.effectiveDate = effectiveDate;
     }
 
-    public Set<Floor> getFloors() {
-        return floors;
+    public Set<Building> getBuildings() {
+        return buildings;
     }
 
-    public Plan floors(Set<Floor> floors) {
-        this.floors = floors;
+    public Plan buildings(Set<Building> buildings) {
+        this.buildings = buildings;
         return this;
     }
 
-    public Plan addFloor(Floor floor) {
-        floors.add(floor);
-        floor.setPlan(this);
+    public Plan addBuilding(Building building) {
+        buildings.add(building);
+        building.setPlan(this);
         return this;
     }
 
-    public Plan removeFloor(Floor floor) {
-        floors.remove(floor);
-        floor.setPlan(null);
+    public Plan removeBuilding(Building building) {
+        buildings.remove(building);
+        building.setPlan(null);
         return this;
     }
 
-    public void setFloors(Set<Floor> floors) {
-        this.floors = floors;
+    public void setBuildings(Set<Building> buildings) {
+        this.buildings = buildings;
     }
 
     public Set<DeskAssignment> getDeskAssignments() {
@@ -180,8 +147,6 @@ public class Plan implements Serializable {
         return "Plan{" +
             "id=" + id +
             ", name='" + name + "'" +
-            ", image='" + image + "'" +
-            ", imageContentType='" + imageContentType + "'" +
             ", effectiveDate='" + effectiveDate + "'" +
             '}';
     }

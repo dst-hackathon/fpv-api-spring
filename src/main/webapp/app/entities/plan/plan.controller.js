@@ -5,9 +5,9 @@
         .module('fpvApp')
         .controller('PlanController', PlanController);
 
-    PlanController.$inject = ['$scope', '$state', 'DataUtils', 'Plan', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    PlanController.$inject = ['$scope', '$state', 'Plan', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function PlanController ($scope, $state, DataUtils, Plan, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function PlanController ($scope, $state, Plan, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         
         vm.loadPage = loadPage;
@@ -15,8 +15,6 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-        vm.openFile = DataUtils.openFile;
-        vm.byteSize = DataUtils.byteSize;
 
         loadAll();
 

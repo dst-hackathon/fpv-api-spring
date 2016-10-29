@@ -2,9 +2,9 @@
 
 describe('Controller Tests', function() {
 
-    describe('Floor Management Detail Controller', function() {
+    describe('Building Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockFloor, MockBuilding, MockDesk;
+        var MockEntity, MockPreviousState, MockBuilding, MockPlan, MockFloor;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -12,9 +12,9 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
-            MockFloor = jasmine.createSpy('MockFloor');
             MockBuilding = jasmine.createSpy('MockBuilding');
-            MockDesk = jasmine.createSpy('MockDesk');
+            MockPlan = jasmine.createSpy('MockPlan');
+            MockFloor = jasmine.createSpy('MockFloor');
             
 
             var locals = {
@@ -22,19 +22,19 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'Floor': MockFloor,
                 'Building': MockBuilding,
-                'Desk': MockDesk
+                'Plan': MockPlan,
+                'Floor': MockFloor
             };
             createController = function() {
-                $injector.get('$controller')("FloorDetailController", locals);
+                $injector.get('$controller')("BuildingDetailController", locals);
             };
         }));
 
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'fpvApp:floorUpdate';
+                var eventType = 'fpvApp:buildingUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

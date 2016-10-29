@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('floor', {
+        .state('building', {
             parent: 'entity',
-            url: '/floor?page&sort&search',
+            url: '/building?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'fpvApp.floor.home.title'
+                pageTitle: 'fpvApp.building.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/floor/floors.html',
-                    controller: 'FloorController',
+                    templateUrl: 'app/entities/building/buildings.html',
+                    controller: 'BuildingController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,37 +45,37 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('floor');
+                    $translatePartialLoader.addPart('building');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('floor-detail', {
+        .state('building-detail', {
             parent: 'entity',
-            url: '/floor/{id}',
+            url: '/building/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'fpvApp.floor.detail.title'
+                pageTitle: 'fpvApp.building.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/floor/floor-detail.html',
-                    controller: 'FloorDetailController',
+                    templateUrl: 'app/entities/building/building-detail.html',
+                    controller: 'BuildingDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('floor');
+                    $translatePartialLoader.addPart('building');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Floor', function($stateParams, Floor) {
-                    return Floor.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Building', function($stateParams, Building) {
+                    return Building.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'floor',
+                        name: $state.current.name || 'building',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -83,22 +83,22 @@
                 }]
             }
         })
-        .state('floor-detail.edit', {
-            parent: 'floor-detail',
+        .state('building-detail.edit', {
+            parent: 'building-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/floor/floor-dialog.html',
-                    controller: 'FloorDialogController',
+                    templateUrl: 'app/entities/building/building-dialog.html',
+                    controller: 'BuildingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Floor', function(Floor) {
-                            return Floor.get({id : $stateParams.id}).$promise;
+                        entity: ['Building', function(Building) {
+                            return Building.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -108,16 +108,16 @@
                 });
             }]
         })
-        .state('floor.new', {
-            parent: 'floor',
+        .state('building.new', {
+            parent: 'building',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/floor/floor-dialog.html',
-                    controller: 'FloorDialogController',
+                    templateUrl: 'app/entities/building/building-dialog.html',
+                    controller: 'BuildingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -125,63 +125,61 @@
                         entity: function () {
                             return {
                                 name: null,
-                                image: null,
-                                imageContentType: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('floor', null, { reload: 'floor' });
+                    $state.go('building', null, { reload: 'building' });
                 }, function() {
-                    $state.go('floor');
+                    $state.go('building');
                 });
             }]
         })
-        .state('floor.edit', {
-            parent: 'floor',
+        .state('building.edit', {
+            parent: 'building',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/floor/floor-dialog.html',
-                    controller: 'FloorDialogController',
+                    templateUrl: 'app/entities/building/building-dialog.html',
+                    controller: 'BuildingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Floor', function(Floor) {
-                            return Floor.get({id : $stateParams.id}).$promise;
+                        entity: ['Building', function(Building) {
+                            return Building.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('floor', null, { reload: 'floor' });
+                    $state.go('building', null, { reload: 'building' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('floor.delete', {
-            parent: 'floor',
+        .state('building.delete', {
+            parent: 'building',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/floor/floor-delete-dialog.html',
-                    controller: 'FloorDeleteController',
+                    templateUrl: 'app/entities/building/building-delete-dialog.html',
+                    controller: 'BuildingDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Floor', function(Floor) {
-                            return Floor.get({id : $stateParams.id}).$promise;
+                        entity: ['Building', function(Building) {
+                            return Building.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('floor', null, { reload: 'floor' });
+                    $state.go('building', null, { reload: 'building' });
                 }, function() {
                     $state.go('^');
                 });

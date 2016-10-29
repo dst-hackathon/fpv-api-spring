@@ -17,7 +17,8 @@
                 "title": "Floor"
             },
             "name": "Name",
-            "plan": "Plan",
+            "image": "Image",
+            "building": "Building",
             "desk": "Desk"
         }
     }

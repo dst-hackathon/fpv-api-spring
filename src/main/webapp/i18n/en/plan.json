@@ -17,9 +17,8 @@
                 "title": "Plan"
             },
             "name": "Name",
-            "image": "Image",
             "effectiveDate": "Effective Date",
-            "floor": "Floor",
+            "building": "Building",
             "deskAssignment": "Desk Assignment"
         }
     }

@@ -4,15 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <!--
-        Added the constraints for entity Floor.
+        Added the constraints for entity Building.
     -->
-    <changeSet id="20161028141233-2" author="jhipster">
+    <changeSet id="20161029110550-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="building_id"
-                                 baseTableName="floor"
-                                 constraintName="fk_floor_building_id"
+        <addForeignKeyConstraint baseColumnNames="plan_id"
+                                 baseTableName="building"
+                                 constraintName="fk_building_plan_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="building"/>
+                                 referencedTableName="plan"/>
 
     </changeSet>
 </databaseChangeLog>

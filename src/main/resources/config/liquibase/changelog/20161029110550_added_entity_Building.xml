@@ -14,10 +14,10 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Plan.
+        Added the entity Building.
     -->
-    <changeSet id="20161028140956-1" author="jhipster">
-        <createTable tableName="plan">
+    <changeSet id="20161029110550-1" author="jhipster">
+        <createTable tableName="building">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -25,10 +25,10 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="effective_date" type="date">
+            <column name="plan_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            
+
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         

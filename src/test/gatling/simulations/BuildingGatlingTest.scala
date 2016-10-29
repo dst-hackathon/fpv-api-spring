@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the Plan entity.
+ * Performance test for the Building entity.
  */
-class PlanGatlingTest extends Simulation {
+class BuildingGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -37,7 +37,7 @@ class PlanGatlingTest extends Simulation {
         "X-XSRF-TOKEN" -> "${xsrf_token}"
     )
 
-    val scn = scenario("Test the Plan entity")
+    val scn = scenario("Test the Building entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -59,26 +59,26 @@ class PlanGatlingTest extends Simulation {
         .check(status.is(200)))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all plans")
-            .get("/api/plans")
+            exec(http("Get all buildings")
+            .get("/api/buildings")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new plan")
-            .post("/api/plans")
+            .exec(http("Create new building")
+            .post("/api/buildings")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "effectiveDate":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_plan_url"))).exitHereIfFailed
+            .check(headerRegex("Location", "(.*)").saveAs("new_building_url"))).exitHereIfFailed
             .pause(10)
             .repeat(5) {
-                exec(http("Get created plan")
-                .get("${new_plan_url}")
+                exec(http("Get created building")
+                .get("${new_building_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created plan")
-            .delete("${new_plan_url}")
+            .exec(http("Delete created building")
+            .delete("${new_building_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

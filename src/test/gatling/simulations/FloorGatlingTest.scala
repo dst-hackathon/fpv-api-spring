@@ -67,7 +67,7 @@ class FloorGatlingTest extends Simulation {
             .exec(http("Create new floor")
             .post("/api/floors")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "image":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_floor_url"))).exitHereIfFailed
             .pause(10)
