@@ -8,6 +8,10 @@
 *.war
 *.ear
 
+# Not ignore maven-wrapper.jar for mvnw command,
+# otherwise you have to execute mvn -N io.takari:maven:wrapper to setup maven wrapper
+!maven-wrapper.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 *.iml
