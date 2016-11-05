@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "desk_movement")
-public class DeskMovement implements Serializable {
+public class DeskMovement extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -39,6 +39,18 @@
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        
+
+    </changeSet>
+    <changeSet id="1" author="mekeerati">
+        <addColumn tableName="desk_movement">
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>
