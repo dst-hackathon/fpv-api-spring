@@ -1,0 +1,25 @@
+{
+    "fpvApp": {
+        "deskMovement" : {
+            "home": {
+                "title": "Desk Movements",
+                "createLabel": "Create a new Desk Movement",
+                "createOrEditLabel": "Create or edit a Desk Movement",
+                "search": "Search for Desk Movement"
+            },
+            "created": "A new Desk Movement is created with identifier {{ param }}",
+            "updated": "A Desk Movement is updated with identifier {{ param }}",
+            "deleted": "A Desk Movement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Desk Movement {{ id }}?"
+            },
+            "detail": {
+                "title": "Desk Movement"
+            },
+            "employee": "Employee",
+            "fromDesk": "From Desk",
+            "toDesk": "To Desk",
+            "plan": "Plan"
+        }
+    }
+}

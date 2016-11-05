@@ -14,6 +14,7 @@
                 "deskAssignment": "Desk Assignment",
                 "building": "Building",
                 "shadow": "Shadow",
+                "deskMovement": "Desk Movement",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="fpvApp.deskMovement.detail.title">Desk Movement</span> {{vm.deskMovement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="fpvApp.deskMovement.employee">Employee</span></dt>
+        <dd>
+            <a ui-sref="employee-detail({id:vm.deskMovement.employee.id})">{{vm.deskMovement.employee.code}}</a>
+        </dd>
+        <dt><span data-translate="fpvApp.deskMovement.fromDesk">From Desk</span></dt>
+        <dd>
+            <a ui-sref="desk-detail({id:vm.deskMovement.fromDesk.id})">{{vm.deskMovement.fromDesk.code}}</a>
+        </dd>
+        <dt><span data-translate="fpvApp.deskMovement.toDesk">To Desk</span></dt>
+        <dd>
+            <a ui-sref="desk-detail({id:vm.deskMovement.toDesk.id})">{{vm.deskMovement.toDesk.code}}</a>
+        </dd>
+        <dt><span data-translate="fpvApp.deskMovement.plan">Plan</span></dt>
+        <dd>
+            <a ui-sref="plan-detail({id:vm.deskMovement.plan.id})">{{vm.deskMovement.plan.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="desk-movement-detail.edit({id:vm.deskMovement.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
