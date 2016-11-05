@@ -1,14 +1,15 @@
 package com.dstsystems.fpv.domain;
 
+import com.dstsystems.fpv.domain.enumeration.PlanStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Plan.
@@ -29,6 +30,14 @@ public class Plan implements Serializable {
 
     @Column(name = "effective_date")
     private LocalDate effectiveDate;
+
+    @Column(name = "approve_date")
+    private LocalDate approveDate;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private PlanStatus status;
 
     @OneToMany(mappedBy = "plan")
     @JsonIgnore
@@ -70,6 +79,32 @@ public class Plan implements Serializable {
 
     public void setEffectiveDate(LocalDate effectiveDate) {
         this.effectiveDate = effectiveDate;
+    }
+
+    public LocalDate getApproveDate() {
+        return approveDate;
+    }
+
+    public Plan approveDate(LocalDate approveDate) {
+        this.approveDate = approveDate;
+        return this;
+    }
+
+    public void setApproveDate(LocalDate approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public PlanStatus getStatus() {
+        return status;
+    }
+
+    public Plan status(PlanStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(PlanStatus status) {
+        this.status = status;
     }
 
     public Set<Building> getBuildings() {
@@ -148,6 +183,8 @@ public class Plan implements Serializable {
             "id=" + id +
             ", name='" + name + "'" +
             ", effectiveDate='" + effectiveDate + "'" +
+            ", approveDate='" + approveDate + "'" +
+            ", status='" + status + "'" +
             '}';
     }
 }

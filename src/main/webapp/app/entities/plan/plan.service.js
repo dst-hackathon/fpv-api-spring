@@ -17,6 +17,7 @@
                     if (data) {
                         data = angular.fromJson(data);
                         data.effectiveDate = DateUtils.convertLocalDateFromServer(data.effectiveDate);
+                        data.approveDate = DateUtils.convertLocalDateFromServer(data.approveDate);
                     }
                     return data;
                 }
@@ -26,6 +27,7 @@
                 transformRequest: function (data) {
                     var copy = angular.copy(data);
                     copy.effectiveDate = DateUtils.convertLocalDateToServer(copy.effectiveDate);
+                    copy.approveDate = DateUtils.convertLocalDateToServer(copy.approveDate);
                     return angular.toJson(copy);
                 }
             },
@@ -34,6 +36,7 @@
                 transformRequest: function (data) {
                     var copy = angular.copy(data);
                     copy.effectiveDate = DateUtils.convertLocalDateToServer(copy.effectiveDate);
+                    copy.approveDate = DateUtils.convertLocalDateToServer(copy.approveDate);
                     return angular.toJson(copy);
                 }
             }

@@ -25,6 +25,18 @@
         {
             "fieldName": "effectiveDate",
             "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "approveDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "PlanStatus",
+            "fieldValues": "DRAFT,PENDING,APPROVE",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20161028140956",

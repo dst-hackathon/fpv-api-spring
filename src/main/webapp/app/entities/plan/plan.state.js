@@ -46,6 +46,7 @@
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('plan');
+                    $translatePartialLoader.addPart('planStatus');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
@@ -68,6 +69,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('plan');
+                    $translatePartialLoader.addPart('planStatus');
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'Plan', function($stateParams, Plan) {
@@ -126,6 +128,8 @@
                             return {
                                 name: null,
                                 effectiveDate: null,
+                                approveDate: null,
+                                status: null,
                                 id: null
                             };
                         }

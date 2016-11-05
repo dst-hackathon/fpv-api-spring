@@ -1,20 +1,18 @@
 package com.dstsystems.fpv.web.rest;
 
 import com.dstsystems.fpv.FpvApp;
-
 import com.dstsystems.fpv.domain.Plan;
+import com.dstsystems.fpv.domain.enumeration.PlanStatus;
 import com.dstsystems.fpv.repository.PlanRepository;
 import com.dstsystems.fpv.service.PlanService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,9 +27,9 @@ import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 /**
  * Test class for the PlanResource REST controller.
  *
@@ -46,6 +44,12 @@ public class PlanResourceIntTest {
 
     private static final LocalDate DEFAULT_EFFECTIVE_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_EFFECTIVE_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_APPROVE_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_APPROVE_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final PlanStatus DEFAULT_STATUS = PlanStatus.DRAFT;
+    private static final PlanStatus UPDATED_STATUS = PlanStatus.PENDING;
 
     @Inject
     private PlanRepository planRepository;
@@ -85,7 +89,9 @@ public class PlanResourceIntTest {
     public static Plan createEntity(EntityManager em) {
         Plan plan = new Plan()
                 .name(DEFAULT_NAME)
-                .effectiveDate(DEFAULT_EFFECTIVE_DATE);
+                .effectiveDate(DEFAULT_EFFECTIVE_DATE)
+                .approveDate(DEFAULT_APPROVE_DATE)
+                .status(DEFAULT_STATUS);
         return plan;
     }
 
@@ -112,6 +118,8 @@ public class PlanResourceIntTest {
         Plan testPlan = plans.get(plans.size() - 1);
         assertThat(testPlan.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testPlan.getEffectiveDate()).isEqualTo(DEFAULT_EFFECTIVE_DATE);
+        assertThat(testPlan.getApproveDate()).isEqualTo(DEFAULT_APPROVE_DATE);
+        assertThat(testPlan.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -120,6 +128,24 @@ public class PlanResourceIntTest {
         int databaseSizeBeforeTest = planRepository.findAll().size();
         // set the field null
         plan.setName(null);
+
+        // Create the Plan, which fails.
+
+        restPlanMockMvc.perform(post("/api/plans")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(plan)))
+                .andExpect(status().isBadRequest());
+
+        List<Plan> plans = planRepository.findAll();
+        assertThat(plans).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = planRepository.findAll().size();
+        // set the field null
+        plan.setStatus(null);
 
         // Create the Plan, which fails.
 
@@ -144,7 +170,9 @@ public class PlanResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(plan.getId().intValue())))
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].effectiveDate").value(hasItem(DEFAULT_EFFECTIVE_DATE.toString())));
+                .andExpect(jsonPath("$.[*].effectiveDate").value(hasItem(DEFAULT_EFFECTIVE_DATE.toString())))
+                .andExpect(jsonPath("$.[*].approveDate").value(hasItem(DEFAULT_APPROVE_DATE.toString())))
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
     @Test
@@ -159,7 +187,9 @@ public class PlanResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(plan.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.effectiveDate").value(DEFAULT_EFFECTIVE_DATE.toString()));
+            .andExpect(jsonPath("$.effectiveDate").value(DEFAULT_EFFECTIVE_DATE.toString()))
+            .andExpect(jsonPath("$.approveDate").value(DEFAULT_APPROVE_DATE.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -182,7 +212,9 @@ public class PlanResourceIntTest {
         Plan updatedPlan = planRepository.findOne(plan.getId());
         updatedPlan
                 .name(UPDATED_NAME)
-                .effectiveDate(UPDATED_EFFECTIVE_DATE);
+                .effectiveDate(UPDATED_EFFECTIVE_DATE)
+                .approveDate(UPDATED_APPROVE_DATE)
+                .status(UPDATED_STATUS);
 
         restPlanMockMvc.perform(put("/api/plans")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -195,6 +227,8 @@ public class PlanResourceIntTest {
         Plan testPlan = plans.get(plans.size() - 1);
         assertThat(testPlan.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPlan.getEffectiveDate()).isEqualTo(UPDATED_EFFECTIVE_DATE);
+        assertThat(testPlan.getApproveDate()).isEqualTo(UPDATED_APPROVE_DATE);
+        assertThat(testPlan.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

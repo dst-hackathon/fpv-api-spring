@@ -12,6 +12,14 @@
         <dd>
             <span>{{vm.plan.effectiveDate | date:'mediumDate'}}</span>
         </dd>
+        <dt><span data-translate="fpvApp.plan.approveDate">Approve Date</span></dt>
+        <dd>
+            <span>{{vm.plan.approveDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.plan.status">Status</span></dt>
+        <dd>
+            <span data-translate="{{'fpvApp.PlanStatus.' + vm.plan.status}}">{{vm.plan.status}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

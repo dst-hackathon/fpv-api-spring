@@ -67,7 +67,7 @@ class PlanGatlingTest extends Simulation {
             .exec(http("Create new plan")
             .post("/api/plans")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "effectiveDate":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "effectiveDate":"2020-01-01T00:00:00.000Z", "approveDate":"2020-01-01T00:00:00.000Z", "status":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_plan_url"))).exitHereIfFailed
             .pause(10)

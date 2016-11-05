@@ -18,6 +18,8 @@
             },
             "name": "Name",
             "effectiveDate": "Effective Date",
+            "approveDate": "Approve Date",
+            "status": "Status",
             "building": "Building",
             "deskAssignment": "Desk Assignment"
         }

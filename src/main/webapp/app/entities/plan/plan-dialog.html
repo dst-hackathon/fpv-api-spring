@@ -35,6 +35,30 @@
                     </span>
                 </div>
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.plan.approveDate" for="field_approveDate">Approve Date</label>
+                <div class="input-group">
+                    <input id="field_approveDate" type="text" class="form-control" name="approveDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.plan.approveDate" is-open="vm.datePickerOpenStatus.approveDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('approveDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.plan.status" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="vm.plan.status" id="field_status" required>
+                <option value="DRAFT" data-translate="fpvApp.PlanStatus.DRAFT">DRAFT</option>
+                <option value="PENDING" data-translate="fpvApp.PlanStatus.PENDING">PENDING</option>
+                <option value="APPROVE" data-translate="fpvApp.PlanStatus.APPROVE">APPROVE</option>
+            </select>
+            <div ng-show="editForm.status.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.status.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
 
     </div>
     <div class="modal-footer">
