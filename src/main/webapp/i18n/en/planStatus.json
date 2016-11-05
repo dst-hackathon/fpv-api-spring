@@ -1,0 +1,10 @@
+{
+    "fpvApp": {
+        "PlanStatus" : {
+            "null": "",
+            "DRAFT": "DRAFT",
+            "PENDING": "PENDING",
+            "APPROVE": "APPROVE"
+        }
+    }
+}
