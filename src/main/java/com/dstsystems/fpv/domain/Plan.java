@@ -28,7 +28,7 @@ public class Plan implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "effective_date")
+    @Column(name = "effective_date", unique = true)
     private LocalDate effectiveDate;
 
     @Column(name = "approve_date")
