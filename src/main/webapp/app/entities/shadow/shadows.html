@@ -1,0 +1,70 @@
+<div>
+    <h2 data-translate="fpvApp.shadow.home.title">Shadows</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="shadow.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="fpvApp.shadow.home.createLabel">
+                        Create new Shadow
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="employee.code"><span data-translate="fpvApp.shadow.employee">Employee</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fromDesk.code"><span data-translate="fpvApp.shadow.fromDesk">From Desk</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="toDesk.code"><span data-translate="fpvApp.shadow.toDesk">To Desk</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="shadow in vm.shadows track by shadow.id">
+                    <td><a ui-sref="shadow-detail({id:shadow.id})">{{shadow.id}}</a></td>
+                    <td>
+                        <a ui-sref="employee-detail({id:shadow.employee.id})">{{shadow.employee.code}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="desk-detail({id:shadow.fromDesk.id})">{{shadow.fromDesk.code}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="desk-detail({id:shadow.toDesk.id})">{{shadow.toDesk.code}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="shadow-detail({id:shadow.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="shadow.edit({id:shadow.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="shadow.delete({id:shadow.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>
