@@ -49,6 +49,64 @@
                 </p>
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.employee.nickname" for="field_nickname">Nickname</label>
+            <input type="text" class="form-control" name="nickname" id="field_nickname"
+                    ng-model="vm.employee.nickname"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.employee.businessUnit" for="field_businessUnit">Business Unit</label>
+            <input type="text" class="form-control" name="businessUnit" id="field_businessUnit"
+                    ng-model="vm.employee.businessUnit"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.employee.position" for="field_position">Position</label>
+            <input type="text" class="form-control" name="position" id="field_position"
+                    ng-model="vm.employee.position"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setImage($file, vm.employee)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="fpvApp.employee.image" for="field_image">Image</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.employee.imageContentType + ';base64,' + vm.employee.image}}" style="max-height: 100px;" ng-if="vm.employee.image"/>
+                <div ng-if="vm.employee.image" class="help-block clearfix">
+                    <span class="pull-left">{{vm.employee.imageContentType}}, {{vm.byteSize(vm.employee.image)}}</span>
+                    <button type="button" ng-click="vm.employee.image=null;vm.employee.imageContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setImage($file, vm.employee)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="image" id="field_image"
+                    ng-model="vm.employee.image"
+                     />
+            <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                    ng-model="vm.employee.imageContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.employee.work" for="field_work">Work</label>
+            <input type="text" class="form-control" name="work" id="field_work"
+                    ng-model="vm.employee.work"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.employee.mobile" for="field_mobile">Mobile</label>
+            <input type="text" class="form-control" name="mobile" id="field_mobile"
+                    ng-model="vm.employee.mobile"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="fpvApp.employee.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                    ng-model="vm.employee.email"
+                     />
+        </div>
 
     </div>
     <div class="modal-footer">

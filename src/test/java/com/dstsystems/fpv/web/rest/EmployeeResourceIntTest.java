@@ -20,6 +20,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -47,6 +48,29 @@ public class EmployeeResourceIntTest {
 
     private static final String DEFAULT_LASTNAME = "AAAAA";
     private static final String UPDATED_LASTNAME = "BBBBB";
+
+    private static final String DEFAULT_NICKNAME = "AAAAA";
+    private static final String UPDATED_NICKNAME = "BBBBB";
+
+    private static final String DEFAULT_BUSINESS_UNIT = "AAAAA";
+    private static final String UPDATED_BUSINESS_UNIT = "BBBBB";
+
+    private static final String DEFAULT_POSITION = "AAAAA";
+    private static final String UPDATED_POSITION = "BBBBB";
+
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(2, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
+
+    private static final String DEFAULT_WORK = "AAAAA";
+    private static final String UPDATED_WORK = "BBBBB";
+
+    private static final String DEFAULT_MOBILE = "AAAAA";
+    private static final String UPDATED_MOBILE = "BBBBB";
+
+    private static final String DEFAULT_EMAIL = "AAAAA";
+    private static final String UPDATED_EMAIL = "BBBBB";
 
     @Inject
     private EmployeeRepository employeeRepository;
@@ -87,7 +111,15 @@ public class EmployeeResourceIntTest {
         Employee employee = new Employee()
                 .code(DEFAULT_CODE)
                 .firstname(DEFAULT_FIRSTNAME)
-                .lastname(DEFAULT_LASTNAME);
+                .lastname(DEFAULT_LASTNAME)
+                .nickname(DEFAULT_NICKNAME)
+                .businessUnit(DEFAULT_BUSINESS_UNIT)
+                .position(DEFAULT_POSITION)
+                .image(DEFAULT_IMAGE)
+                .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
+                .work(DEFAULT_WORK)
+                .mobile(DEFAULT_MOBILE)
+                .email(DEFAULT_EMAIL);
         return employee;
     }
 
@@ -115,6 +147,14 @@ public class EmployeeResourceIntTest {
         assertThat(testEmployee.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testEmployee.getFirstname()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testEmployee.getLastname()).isEqualTo(DEFAULT_LASTNAME);
+        assertThat(testEmployee.getNickname()).isEqualTo(DEFAULT_NICKNAME);
+        assertThat(testEmployee.getBusinessUnit()).isEqualTo(DEFAULT_BUSINESS_UNIT);
+        assertThat(testEmployee.getPosition()).isEqualTo(DEFAULT_POSITION);
+        assertThat(testEmployee.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testEmployee.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
+        assertThat(testEmployee.getWork()).isEqualTo(DEFAULT_WORK);
+        assertThat(testEmployee.getMobile()).isEqualTo(DEFAULT_MOBILE);
+        assertThat(testEmployee.getEmail()).isEqualTo(DEFAULT_EMAIL);
     }
 
     @Test
@@ -184,7 +224,15 @@ public class EmployeeResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
                 .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
                 .andExpect(jsonPath("$.[*].firstname").value(hasItem(DEFAULT_FIRSTNAME.toString())))
-                .andExpect(jsonPath("$.[*].lastname").value(hasItem(DEFAULT_LASTNAME.toString())));
+                .andExpect(jsonPath("$.[*].lastname").value(hasItem(DEFAULT_LASTNAME.toString())))
+                .andExpect(jsonPath("$.[*].nickname").value(hasItem(DEFAULT_NICKNAME.toString())))
+                .andExpect(jsonPath("$.[*].businessUnit").value(hasItem(DEFAULT_BUSINESS_UNIT.toString())))
+                .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION.toString())))
+                .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+                .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
+                .andExpect(jsonPath("$.[*].work").value(hasItem(DEFAULT_WORK.toString())))
+                .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE.toString())))
+                .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
     }
 
     @Test
@@ -200,7 +248,15 @@ public class EmployeeResourceIntTest {
             .andExpect(jsonPath("$.id").value(employee.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
             .andExpect(jsonPath("$.firstname").value(DEFAULT_FIRSTNAME.toString()))
-            .andExpect(jsonPath("$.lastname").value(DEFAULT_LASTNAME.toString()));
+            .andExpect(jsonPath("$.lastname").value(DEFAULT_LASTNAME.toString()))
+            .andExpect(jsonPath("$.nickname").value(DEFAULT_NICKNAME.toString()))
+            .andExpect(jsonPath("$.businessUnit").value(DEFAULT_BUSINESS_UNIT.toString()))
+            .andExpect(jsonPath("$.position").value(DEFAULT_POSITION.toString()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
+            .andExpect(jsonPath("$.work").value(DEFAULT_WORK.toString()))
+            .andExpect(jsonPath("$.mobile").value(DEFAULT_MOBILE.toString()))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
     }
 
     @Test
@@ -224,7 +280,15 @@ public class EmployeeResourceIntTest {
         updatedEmployee
                 .code(UPDATED_CODE)
                 .firstname(UPDATED_FIRSTNAME)
-                .lastname(UPDATED_LASTNAME);
+                .lastname(UPDATED_LASTNAME)
+                .nickname(UPDATED_NICKNAME)
+                .businessUnit(UPDATED_BUSINESS_UNIT)
+                .position(UPDATED_POSITION)
+                .image(UPDATED_IMAGE)
+                .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+                .work(UPDATED_WORK)
+                .mobile(UPDATED_MOBILE)
+                .email(UPDATED_EMAIL);
 
         restEmployeeMockMvc.perform(put("/api/employees")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -238,6 +302,14 @@ public class EmployeeResourceIntTest {
         assertThat(testEmployee.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testEmployee.getFirstname()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testEmployee.getLastname()).isEqualTo(UPDATED_LASTNAME);
+        assertThat(testEmployee.getNickname()).isEqualTo(UPDATED_NICKNAME);
+        assertThat(testEmployee.getBusinessUnit()).isEqualTo(UPDATED_BUSINESS_UNIT);
+        assertThat(testEmployee.getPosition()).isEqualTo(UPDATED_POSITION);
+        assertThat(testEmployee.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testEmployee.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testEmployee.getWork()).isEqualTo(UPDATED_WORK);
+        assertThat(testEmployee.getMobile()).isEqualTo(UPDATED_MOBILE);
+        assertThat(testEmployee.getEmail()).isEqualTo(UPDATED_EMAIL);
     }
 
     @Test

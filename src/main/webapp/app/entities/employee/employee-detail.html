@@ -16,6 +16,39 @@
         <dd>
             <span>{{vm.employee.lastname}}</span>
         </dd>
+        <dt><span data-translate="fpvApp.employee.nickname">Nickname</span></dt>
+        <dd>
+            <span>{{vm.employee.nickname}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.employee.businessUnit">Business Unit</span></dt>
+        <dd>
+            <span>{{vm.employee.businessUnit}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.employee.position">Position</span></dt>
+        <dd>
+            <span>{{vm.employee.position}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.employee.image">Image</span></dt>
+        <dd>
+            <div ng-if="vm.employee.image">
+                <a ng-click="vm.openFile(vm.employee.imageContentType, vm.employee.image)">
+                    <img data-ng-src="{{'data:' + vm.employee.imageContentType + ';base64,' + vm.employee.image}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.employee.imageContentType}}, {{vm.byteSize(vm.employee.image)}}
+            </div>
+        </dd>
+        <dt><span data-translate="fpvApp.employee.work">Work</span></dt>
+        <dd>
+            <span>{{vm.employee.work}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.employee.mobile">Mobile</span></dt>
+        <dd>
+            <span>{{vm.employee.mobile}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.employee.email">Email</span></dt>
+        <dd>
+            <span>{{vm.employee.email}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

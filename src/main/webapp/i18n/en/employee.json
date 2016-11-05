@@ -18,7 +18,14 @@
             },
             "code": "Code",
             "firstname": "Firstname",
-            "lastname": "Lastname"
+            "lastname": "Lastname",
+            "nickname": "Nickname",
+            "businessUnit": "Business Unit",
+            "position": "Position",
+            "image": "Image",
+            "work": "Work",
+            "mobile": "Mobile",
+            "email": "Email"
         }
     }
 }

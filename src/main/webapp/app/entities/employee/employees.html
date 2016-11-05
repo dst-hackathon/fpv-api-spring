@@ -22,6 +22,13 @@
                     <th jh-sort-by="code"><span data-translate="fpvApp.employee.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="firstname"><span data-translate="fpvApp.employee.firstname">Firstname</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="lastname"><span data-translate="fpvApp.employee.lastname">Lastname</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="nickname"><span data-translate="fpvApp.employee.nickname">Nickname</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="businessUnit"><span data-translate="fpvApp.employee.businessUnit">Business Unit</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="position"><span data-translate="fpvApp.employee.position">Position</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="image"><span data-translate="fpvApp.employee.image">Image</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="work"><span data-translate="fpvApp.employee.work">Work</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mobile"><span data-translate="fpvApp.employee.mobile">Mobile</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="email"><span data-translate="fpvApp.employee.email">Email</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -31,6 +38,18 @@
                     <td>{{employee.code}}</td>
                     <td>{{employee.firstname}}</td>
                     <td>{{employee.lastname}}</td>
+                    <td>{{employee.nickname}}</td>
+                    <td>{{employee.businessUnit}}</td>
+                    <td>{{employee.position}}</td>
+                    <td>
+                        <a ng-if="employee.image" ng-click="vm.openFile(employee.imageContentType, employee.image)">
+                            <img data-ng-src="{{'data:' + employee.imageContentType + ';base64,' + employee.image}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="employee.image">{{employee.imageContentType}}, {{vm.byteSize(employee.image)}}</span>
+                    </td>
+                    <td>{{employee.work}}</td>
+                    <td>{{employee.mobile}}</td>
+                    <td>{{employee.email}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

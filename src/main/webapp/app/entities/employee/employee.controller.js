@@ -5,9 +5,9 @@
         .module('fpvApp')
         .controller('EmployeeController', EmployeeController);
 
-    EmployeeController.$inject = ['$scope', '$state', 'Employee', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    EmployeeController.$inject = ['$scope', '$state', 'DataUtils', 'Employee', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function EmployeeController ($scope, $state, Employee, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function EmployeeController ($scope, $state, DataUtils, Employee, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         
         vm.loadPage = loadPage;
@@ -15,6 +15,8 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.openFile = DataUtils.openFile;
+        vm.byteSize = DataUtils.byteSize;
 
         loadAll();
 

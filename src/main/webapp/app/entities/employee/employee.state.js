@@ -127,6 +127,14 @@
                                 code: null,
                                 firstname: null,
                                 lastname: null,
+                                nickname: null,
+                                businessUnit: null,
+                                position: null,
+                                image: null,
+                                imageContentType: null,
+                                work: null,
+                                mobile: null,
+                                email: null,
                                 id: null
                             };
                         }
