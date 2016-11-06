@@ -1,6 +1,7 @@
 package com.dstsystems.fpv.service;
 
 import com.dstsystems.fpv.domain.Plan;
+import com.dstsystems.fpv.domain.enumeration.PlanStatus;
 import com.dstsystems.fpv.repository.PlanRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Service Implementation for managing Plan.
@@ -20,7 +21,7 @@ import java.util.List;
 public class PlanService {
 
     private final Logger log = LoggerFactory.getLogger(PlanService.class);
-    
+
     @Inject
     private PlanRepository planRepository;
 
@@ -38,11 +39,11 @@ public class PlanService {
 
     /**
      *  Get all the plans.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Plan> findAll(Pageable pageable) {
         log.debug("Request to get all Plans");
         Page<Plan> result = planRepository.findAll(pageable);
@@ -55,7 +56,7 @@ public class PlanService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Plan findOne(Long id) {
         log.debug("Request to get Plan : {}", id);
         Plan plan = planRepository.findOne(id);
@@ -70,5 +71,11 @@ public class PlanService {
     public void delete(Long id) {
         log.debug("Request to delete Plan : {}", id);
         planRepository.delete(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Plan findLatestApprovedPlan() {
+        log.debug("Request to find latest approved plan");
+        return planRepository.findFirstByStatusAndEffectiveDateIsLessThanOrderByEffectiveDateDesc(PlanStatus.APPROVE, LocalDate.now());
     }
 }
