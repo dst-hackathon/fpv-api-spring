@@ -24,10 +24,10 @@ public class Desk implements Serializable {
     private String code;
 
     @Column(name = "x")
-    private Integer x;
+    private Double x;
 
     @Column(name = "y")
-    private Integer y;
+    private Double y;
 
     @ManyToOne
     private Floor floor;
@@ -53,29 +53,29 @@ public class Desk implements Serializable {
         this.code = code;
     }
 
-    public Integer getX() {
+    public Double getX() {
         return x;
     }
 
-    public Desk x(Integer x) {
+    public Desk x(Double x) {
         this.x = x;
         return this;
     }
 
-    public void setX(Integer x) {
+    public void setX(Double x) {
         this.x = x;
     }
 
-    public Integer getY() {
+    public Double getY() {
         return y;
     }
 
-    public Desk y(Integer y) {
+    public Desk y(Double y) {
         this.y = y;
         return this;
     }
 
-    public void setY(Integer y) {
+    public void setY(Double y) {
         this.y = y;
     }
 

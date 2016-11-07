@@ -42,11 +42,11 @@ public class DeskResourceIntTest {
     private static final String DEFAULT_CODE = "AAAAA";
     private static final String UPDATED_CODE = "BBBBB";
 
-    private static final Integer DEFAULT_X = 1;
-    private static final Integer UPDATED_X = 2;
+    private static final Double DEFAULT_X = 1D;
+    private static final Double UPDATED_X = 2D;
 
-    private static final Integer DEFAULT_Y = 1;
-    private static final Integer UPDATED_Y = 2;
+    private static final Double DEFAULT_Y = 1D;
+    private static final Double UPDATED_Y = 2D;
 
     @Inject
     private DeskRepository deskRepository;
@@ -147,8 +147,8 @@ public class DeskResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(desk.getId().intValue())))
                 .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
-                .andExpect(jsonPath("$.[*].x").value(hasItem(DEFAULT_X)))
-                .andExpect(jsonPath("$.[*].y").value(hasItem(DEFAULT_Y)));
+                .andExpect(jsonPath("$.[*].x").value(hasItem(DEFAULT_X.doubleValue())))
+                .andExpect(jsonPath("$.[*].y").value(hasItem(DEFAULT_Y.doubleValue())));
     }
 
     @Test
@@ -163,8 +163,8 @@ public class DeskResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(desk.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
-            .andExpect(jsonPath("$.x").value(DEFAULT_X))
-            .andExpect(jsonPath("$.y").value(DEFAULT_Y));
+            .andExpect(jsonPath("$.x").value(DEFAULT_X.doubleValue()))
+            .andExpect(jsonPath("$.y").value(DEFAULT_Y.doubleValue()));
     }
 
     @Test

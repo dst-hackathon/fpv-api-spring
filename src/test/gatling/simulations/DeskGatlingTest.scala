@@ -67,7 +67,7 @@ class DeskGatlingTest extends Simulation {
             .exec(http("Create new desk")
             .post("/api/desks")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "code":"SAMPLE_TEXT", "x":"0", "y":"0"}""")).asJSON
+            .body(StringBody("""{"id":null, "code":"SAMPLE_TEXT", "x":null, "y":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_desk_url"))).exitHereIfFailed
             .pause(10)

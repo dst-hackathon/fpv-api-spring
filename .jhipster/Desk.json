@@ -18,11 +18,11 @@
         },
         {
             "fieldName": "x",
-            "fieldType": "Integer"
+            "fieldType": "Double"
         },
         {
             "fieldName": "y",
-            "fieldType": "Integer"
+            "fieldType": "Double"
         }
     ],
     "changelogDate": "20161028141858",
