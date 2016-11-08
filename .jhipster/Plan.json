@@ -37,6 +37,14 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "cloned",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "cloneFromPlanId",
+            "fieldType": "Long"
         }
     ],
     "changelogDate": "20161028140956",

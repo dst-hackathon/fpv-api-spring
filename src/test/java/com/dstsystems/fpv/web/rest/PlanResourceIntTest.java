@@ -51,6 +51,12 @@ public class PlanResourceIntTest {
     private static final PlanStatus DEFAULT_STATUS = PlanStatus.DRAFT;
     private static final PlanStatus UPDATED_STATUS = PlanStatus.PENDING;
 
+    private static final Boolean DEFAULT_CLONED = false;
+    private static final Boolean UPDATED_CLONED = true;
+
+    private static final Long DEFAULT_CLONE_FROM_PLAN_ID = 1L;
+    private static final Long UPDATED_CLONE_FROM_PLAN_ID = 2L;
+
     @Inject
     private PlanRepository planRepository;
 
@@ -91,7 +97,9 @@ public class PlanResourceIntTest {
                 .name(DEFAULT_NAME)
                 .effectiveDate(DEFAULT_EFFECTIVE_DATE)
                 .approveDate(DEFAULT_APPROVE_DATE)
-                .status(DEFAULT_STATUS);
+                .status(DEFAULT_STATUS)
+                .cloned(DEFAULT_CLONED)
+                .cloneFromPlanId(DEFAULT_CLONE_FROM_PLAN_ID);
         return plan;
     }
 
@@ -120,6 +128,8 @@ public class PlanResourceIntTest {
         assertThat(testPlan.getEffectiveDate()).isEqualTo(DEFAULT_EFFECTIVE_DATE);
         assertThat(testPlan.getApproveDate()).isEqualTo(DEFAULT_APPROVE_DATE);
         assertThat(testPlan.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testPlan.isCloned()).isEqualTo(DEFAULT_CLONED);
+        assertThat(testPlan.getCloneFromPlanId()).isEqualTo(DEFAULT_CLONE_FROM_PLAN_ID);
     }
 
     @Test
@@ -172,7 +182,9 @@ public class PlanResourceIntTest {
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].effectiveDate").value(hasItem(DEFAULT_EFFECTIVE_DATE.toString())))
                 .andExpect(jsonPath("$.[*].approveDate").value(hasItem(DEFAULT_APPROVE_DATE.toString())))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+                .andExpect(jsonPath("$.[*].cloned").value(hasItem(DEFAULT_CLONED.booleanValue())))
+                .andExpect(jsonPath("$.[*].cloneFromPlanId").value(hasItem(DEFAULT_CLONE_FROM_PLAN_ID.intValue())));
     }
 
     @Test
@@ -189,7 +201,9 @@ public class PlanResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.effectiveDate").value(DEFAULT_EFFECTIVE_DATE.toString()))
             .andExpect(jsonPath("$.approveDate").value(DEFAULT_APPROVE_DATE.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.cloned").value(DEFAULT_CLONED.booleanValue()))
+            .andExpect(jsonPath("$.cloneFromPlanId").value(DEFAULT_CLONE_FROM_PLAN_ID.intValue()));
     }
 
     @Test
@@ -214,7 +228,9 @@ public class PlanResourceIntTest {
                 .name(UPDATED_NAME)
                 .effectiveDate(UPDATED_EFFECTIVE_DATE)
                 .approveDate(UPDATED_APPROVE_DATE)
-                .status(UPDATED_STATUS);
+                .status(UPDATED_STATUS)
+                .cloned(UPDATED_CLONED)
+                .cloneFromPlanId(UPDATED_CLONE_FROM_PLAN_ID);
 
         restPlanMockMvc.perform(put("/api/plans")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -229,6 +245,8 @@ public class PlanResourceIntTest {
         assertThat(testPlan.getEffectiveDate()).isEqualTo(UPDATED_EFFECTIVE_DATE);
         assertThat(testPlan.getApproveDate()).isEqualTo(UPDATED_APPROVE_DATE);
         assertThat(testPlan.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testPlan.isCloned()).isEqualTo(UPDATED_CLONED);
+        assertThat(testPlan.getCloneFromPlanId()).isEqualTo(UPDATED_CLONE_FROM_PLAN_ID);
     }
 
     @Test

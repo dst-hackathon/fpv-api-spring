@@ -37,6 +37,14 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="cloned" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="clone_from_plan_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         

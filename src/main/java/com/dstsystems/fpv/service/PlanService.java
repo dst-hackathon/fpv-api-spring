@@ -78,6 +78,14 @@ public class PlanService {
         planRepository.delete(id);
     }
 
+    /**
+     * Clone plan from the latest approved plan that
+     * - Status is APPROVED
+     * - Effective date is closest to system today date.
+     *
+     * @param plan
+     * @return cloned entity
+     */
     public Plan cloneLatestApprovedPlan(Plan plan) {
         log.debug("Request to clone latest approved plan");
         Plan newPlan = new Plan();
@@ -126,6 +134,8 @@ public class PlanService {
         newPlan.setBuildings(newBuildings);
         newPlan.setStatus(PlanStatus.DRAFT);
         newPlan.setName(plan.getName());
+        newPlan.setCloned(true);
+        newPlan.setCloneFromPlanId(latestPlan.getId());
 
         return this.save(newPlan);
     }

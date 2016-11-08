@@ -50,12 +50,11 @@ public class PlanResource {
 
         Plan result;
 
-        if(plan.getCloning() == true) {
+        if(plan.isCloned() != null && plan.isCloned() == true) {
             result = planService.cloneLatestApprovedPlan(plan);
         } else {
             result = planService.save(plan);
         }
-
         return ResponseEntity.created(new URI("/api/plans/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("plan", result.getId().toString()))
             .body(result);

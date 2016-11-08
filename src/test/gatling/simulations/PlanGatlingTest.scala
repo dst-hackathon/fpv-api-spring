@@ -1,10 +1,5 @@
-import _root_.io.gatling.core.scenario.Simulation
-import ch.qos.logback.classic.{Level, LoggerContext}
-import io.gatling.core.Predef._
-import io.gatling.http.Predef._
+import ch.qos.logback.classic.LoggerContext
 import org.slf4j.LoggerFactory
-
-import scala.concurrent.duration._
 
 /**
  * Performance test for the Plan entity.
@@ -67,7 +62,7 @@ class PlanGatlingTest extends Simulation {
             .exec(http("Create new plan")
             .post("/api/plans")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "effectiveDate":"2020-01-01T00:00:00.000Z", "approveDate":"2020-01-01T00:00:00.000Z", "status":null}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "effectiveDate":"2020-01-01T00:00:00.000Z", "approveDate":"2020-01-01T00:00:00.000Z", "status":null, "cloned":null, "cloneFromPlanId":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_plan_url"))).exitHereIfFailed
             .pause(10)

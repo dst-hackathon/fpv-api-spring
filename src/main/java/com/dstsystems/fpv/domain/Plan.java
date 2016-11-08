@@ -39,6 +39,12 @@ public class Plan implements Serializable {
     @Column(name = "status", nullable = false)
     private PlanStatus status;
 
+    @Column(name = "cloned")
+    private Boolean cloned = false;
+
+    @Column(name = "clone_from_plan_id")
+    private Long cloneFromPlanId;
+
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Building> buildings = new HashSet<>();
@@ -46,9 +52,6 @@ public class Plan implements Serializable {
     @OneToMany(mappedBy = "plan")
     @JsonIgnore
     private Set<DeskAssignment> deskAssignments = new HashSet<>();
-
-    @Transient
-    private Boolean cloning = false;
 
     public Long getId() {
         return id;
@@ -110,6 +113,32 @@ public class Plan implements Serializable {
         this.status = status;
     }
 
+    public Boolean isCloned() {
+        return cloned;
+    }
+
+    public Plan cloned(Boolean cloned) {
+        this.cloned = cloned;
+        return this;
+    }
+
+    public void setCloned(Boolean cloned) {
+        this.cloned = cloned;
+    }
+
+    public Long getCloneFromPlanId() {
+        return cloneFromPlanId;
+    }
+
+    public Plan cloneFromPlanId(Long cloneFromPlanId) {
+        this.cloneFromPlanId = cloneFromPlanId;
+        return this;
+    }
+
+    public void setCloneFromPlanId(Long cloneFromPlanId) {
+        this.cloneFromPlanId = cloneFromPlanId;
+    }
+
     public Set<Building> getBuildings() {
         return buildings;
     }
@@ -160,14 +189,6 @@ public class Plan implements Serializable {
         this.deskAssignments = deskAssignments;
     }
 
-    public Boolean getCloning() {
-        return cloning;
-    }
-
-    public void setCloning(Boolean cloning) {
-        this.cloning = cloning;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -196,6 +217,8 @@ public class Plan implements Serializable {
             ", effectiveDate='" + effectiveDate + "'" +
             ", approveDate='" + approveDate + "'" +
             ", status='" + status + "'" +
+            ", cloned='" + cloned + "'" +
+            ", cloneFromPlanId='" + cloneFromPlanId + "'" +
             '}';
     }
 }

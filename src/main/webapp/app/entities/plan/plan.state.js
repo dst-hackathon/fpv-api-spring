@@ -130,6 +130,8 @@
                                 effectiveDate: null,
                                 approveDate: null,
                                 status: null,
+                                cloned: null,
+                                cloneFromPlanId: null,
                                 id: null
                             };
                         }

@@ -20,6 +20,8 @@
             "effectiveDate": "Effective Date",
             "approveDate": "Approve Date",
             "status": "Status",
+            "cloned": "Cloned",
+            "cloneFromPlanId": "Clone From Plan Id",
             "building": "Building",
             "deskAssignment": "Desk Assignment"
         }

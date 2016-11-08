@@ -23,6 +23,8 @@
                     <th jh-sort-by="effectiveDate"><span data-translate="fpvApp.plan.effectiveDate">Effective Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="approveDate"><span data-translate="fpvApp.plan.approveDate">Approve Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span data-translate="fpvApp.plan.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="cloned"><span data-translate="fpvApp.plan.cloned">Cloned</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="cloneFromPlanId"><span data-translate="fpvApp.plan.cloneFromPlanId">Clone From Plan Id</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,6 +35,8 @@
                         <td>{{plan.effectiveDate | date:'mediumDate'}}</td>
                         <td>{{plan.approveDate | date:'mediumDate'}}</td>
                     <td data-translate="{{'fpvApp.PlanStatus.' + plan.status}}">{{plan.status}}</td>
+                    <td>{{plan.cloned}}</td>
+                    <td>{{plan.cloneFromPlanId}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
