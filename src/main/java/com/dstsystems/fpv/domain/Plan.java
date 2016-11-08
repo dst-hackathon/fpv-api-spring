@@ -39,13 +39,16 @@ public class Plan implements Serializable {
     @Column(name = "status", nullable = false)
     private PlanStatus status;
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Building> buildings = new HashSet<>();
 
     @OneToMany(mappedBy = "plan")
     @JsonIgnore
     private Set<DeskAssignment> deskAssignments = new HashSet<>();
+
+    @Transient
+    private Boolean cloning = false;
 
     public Long getId() {
         return id;
@@ -155,6 +158,14 @@ public class Plan implements Serializable {
 
     public void setDeskAssignments(Set<DeskAssignment> deskAssignments) {
         this.deskAssignments = deskAssignments;
+    }
+
+    public Boolean getCloning() {
+        return cloning;
+    }
+
+    public void setCloning(Boolean cloning) {
+        this.cloning = cloning;
     }
 
     @Override

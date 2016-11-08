@@ -29,7 +29,7 @@ import java.util.Optional;
 public class PlanResource {
 
     private final Logger log = LoggerFactory.getLogger(PlanResource.class);
-        
+
     @Inject
     private PlanService planService;
 
@@ -47,7 +47,15 @@ public class PlanResource {
         if (plan.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("plan", "idexists", "A new plan cannot already have an ID")).body(null);
         }
-        Plan result = planService.save(plan);
+
+        Plan result;
+
+        if(plan.getCloning() == true) {
+            result = planService.cloneLatestApprovedPlan(plan);
+        } else {
+            result = planService.save(plan);
+        }
+
         return ResponseEntity.created(new URI("/api/plans/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("plan", result.getId().toString()))
             .body(result);

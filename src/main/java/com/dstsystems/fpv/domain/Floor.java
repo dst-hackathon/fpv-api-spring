@@ -3,11 +3,11 @@ package com.dstsystems.fpv.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Floor.
@@ -36,7 +36,7 @@ public class Floor implements Serializable {
     @ManyToOne
     private Building building;
 
-    @OneToMany(mappedBy = "floor")
+    @OneToMany(mappedBy = "floor", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Desk> desks = new HashSet<>();
 

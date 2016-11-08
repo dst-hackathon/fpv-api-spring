@@ -1,7 +1,6 @@
 package com.dstsystems.fpv.config;
 
 import com.dstsystems.fpv.config.liquibase.AsyncSpringLiquibase;
-
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import liquibase.integration.spring.SpringLiquibase;
 import org.h2.tools.Server;
@@ -64,6 +63,6 @@ public class DatabaseConfiguration {
 
     @Bean
     public Hibernate4Module hibernate4Module() {
-        return new Hibernate4Module();
+        return new Hibernate4Module().disable(Hibernate4Module.Feature.USE_TRANSIENT_ANNOTATION);
     }
 }
