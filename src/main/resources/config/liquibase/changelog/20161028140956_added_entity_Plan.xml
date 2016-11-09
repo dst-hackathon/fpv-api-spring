@@ -24,29 +24,33 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="effective_date" type="date">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="approve_date" type="date">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="status" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
+            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="20161109140956-1" author="tisana">
+        <addColumn tableName="plan">
             <column name="cloned" type="bit">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="clone_from_plan_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
-        </createTable>
-        
+        </addColumn>
     </changeSet>
 </databaseChangeLog>
