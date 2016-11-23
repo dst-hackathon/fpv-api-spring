@@ -20,7 +20,7 @@ import java.util.List;
 public class BuildingService {
 
     private final Logger log = LoggerFactory.getLogger(BuildingService.class);
-    
+
     @Inject
     private BuildingRepository buildingRepository;
 
@@ -38,13 +38,18 @@ public class BuildingService {
 
     /**
      *  Get all the buildings.
-     *  
+     *
      *  @param pageable the pagination information
+     *  @param planId plan id
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<Building> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<Building> findAll(Pageable pageable,Long planId) {
         log.debug("Request to get all Buildings");
+        if(planId != null ){
+            return buildingRepository.findByPlanId(pageable,planId);
+        }
+
         Page<Building> result = buildingRepository.findAll(pageable);
         return result;
     }
@@ -55,7 +60,7 @@ public class BuildingService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Building findOne(Long id) {
         log.debug("Request to get Building : {}", id);
         Building building = buildingRepository.findOne(id);
