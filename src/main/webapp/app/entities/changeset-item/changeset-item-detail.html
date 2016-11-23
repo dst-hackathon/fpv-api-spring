@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="fpvApp.changesetItem.detail.title">Changeset Item</span> {{vm.changesetItem.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="fpvApp.changesetItem.status">Status</span></dt>
+        <dd>
+            <span data-translate="{{'fpvApp.ChangesetItemStatus.' + vm.changesetItem.status}}">{{vm.changesetItem.status}}</span>
+        </dd>
+        <dt><span data-translate="fpvApp.changesetItem.employee">Employee</span></dt>
+        <dd>
+            <a ui-sref="employee-detail({id:vm.changesetItem.employee.id})">{{vm.changesetItem.employee.code}}</a>
+        </dd>
+        <dt><span data-translate="fpvApp.changesetItem.fromDesk">From Desk</span></dt>
+        <dd>
+            <a ui-sref="desk-detail({id:vm.changesetItem.fromDesk.id})">{{vm.changesetItem.fromDesk.code}}</a>
+        </dd>
+        <dt><span data-translate="fpvApp.changesetItem.toDesk">To Desk</span></dt>
+        <dd>
+            <a ui-sref="desk-detail({id:vm.changesetItem.toDesk.id})">{{vm.changesetItem.toDesk.code}}</a>
+        </dd>
+        <dt><span data-translate="fpvApp.changesetItem.changeset">Changeset</span></dt>
+        <dd>
+            <a ui-sref="changeset-detail({id:vm.changesetItem.changeset.id})">{{vm.changesetItem.changeset.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="changeset-item-detail.edit({id:vm.changesetItem.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

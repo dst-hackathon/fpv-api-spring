@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "code"
+        },
+        {
+            "relationshipName": "fromDesk",
+            "otherEntityName": "desk",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "code"
+        },
+        {
+            "relationshipName": "toDesk",
+            "otherEntityName": "desk",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "code"
+        },
+        {
+            "relationshipName": "changeset",
+            "otherEntityName": "changeset",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "ChangesetItemStatus",
+            "fieldValues": "ACCEPT,DENY"
+        }
+    ],
+    "changelogDate": "20161123155524",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "changeset_item",
+    "pagination": "pager"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity ChangesetItem.
+    -->
+    <changeSet id="20161123155524-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="changeset_item"
+                                 constraintName="fk_changeset_item_employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="from_desk_id"
+                                 baseTableName="changeset_item"
+                                 constraintName="fk_changeset_item_from_desk_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="desk"/>
+
+        <addForeignKeyConstraint baseColumnNames="to_desk_id"
+                                 baseTableName="changeset_item"
+                                 constraintName="fk_changeset_item_to_desk_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="desk"/>
+
+        <addForeignKeyConstraint baseColumnNames="changeset_id"
+                                 baseTableName="changeset_item"
+                                 constraintName="fk_changeset_item_changeset_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="changeset"/>
+
+    </changeSet>
+</databaseChangeLog>

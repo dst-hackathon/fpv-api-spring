@@ -13,6 +13,8 @@
     <include file="classpath:config/liquibase/changelog/20161029110550_added_entity_Building.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161105021852_added_entity_Shadow.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161105023406_added_entity_DeskMovement.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161123155022_added_entity_Changeset.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161123155524_added_entity_ChangesetItem.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20161028141233_added_entity_constraints_Floor.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161028141858_added_entity_constraints_Desk.xml" relativeToChangelogFile="false"/>
@@ -20,5 +22,7 @@
     <include file="classpath:config/liquibase/changelog/20161029110550_added_entity_constraints_Building.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161105021852_added_entity_constraints_Shadow.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161105023406_added_entity_constraints_DeskMovement.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161123155022_added_entity_constraints_Changeset.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161123155524_added_entity_constraints_ChangesetItem.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,9 @@
+{
+    "fpvApp": {
+        "ChangesetStatus" : {
+            "null": "",
+            "IN_PROGRESS": "IN_PROGRESS",
+            "COMPLETE": "COMPLETE"
+        }
+    }
+}

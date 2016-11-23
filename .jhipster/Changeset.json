@@ -1,0 +1,42 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "plan",
+            "otherEntityName": "plan",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "changesetItem",
+            "otherEntityName": "changesetItem",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "changeset"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "effectiveDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ChangesetStatus",
+            "fieldValues": "IN_PROGRESS,COMPLETE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20161123155022",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "changeset",
+    "pagination": "pager"
+}

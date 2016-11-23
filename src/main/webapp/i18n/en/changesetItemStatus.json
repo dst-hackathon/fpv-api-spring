@@ -1,0 +1,9 @@
+{
+    "fpvApp": {
+        "ChangesetItemStatus" : {
+            "null": "",
+            "ACCEPT": "ACCEPT",
+            "DENY": "DENY"
+        }
+    }
+}

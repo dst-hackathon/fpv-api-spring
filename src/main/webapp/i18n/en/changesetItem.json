@@ -1,0 +1,26 @@
+{
+    "fpvApp": {
+        "changesetItem" : {
+            "home": {
+                "title": "Changeset Items",
+                "createLabel": "Create a new Changeset Item",
+                "createOrEditLabel": "Create or edit a Changeset Item",
+                "search": "Search for Changeset Item"
+            },
+            "created": "A new Changeset Item is created with identifier {{ param }}",
+            "updated": "A Changeset Item is updated with identifier {{ param }}",
+            "deleted": "A Changeset Item is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Changeset Item {{ id }}?"
+            },
+            "detail": {
+                "title": "Changeset Item"
+            },
+            "status": "Status",
+            "employee": "Employee",
+            "fromDesk": "From Desk",
+            "toDesk": "To Desk",
+            "changeset": "Changeset"
+        }
+    }
+}

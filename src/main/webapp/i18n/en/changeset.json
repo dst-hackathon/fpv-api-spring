@@ -1,0 +1,25 @@
+{
+    "fpvApp": {
+        "changeset" : {
+            "home": {
+                "title": "Changesets",
+                "createLabel": "Create a new Changeset",
+                "createOrEditLabel": "Create or edit a Changeset",
+                "search": "Search for Changeset"
+            },
+            "created": "A new Changeset is created with identifier {{ param }}",
+            "updated": "A Changeset is updated with identifier {{ param }}",
+            "deleted": "A Changeset is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Changeset {{ id }}?"
+            },
+            "detail": {
+                "title": "Changeset"
+            },
+            "effectiveDate": "Effective Date",
+            "status": "Status",
+            "plan": "Plan",
+            "changesetItem": "Changeset Item"
+        }
+    }
+}
