@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.List;
 
 /**
  * Service Implementation for managing Floor.
@@ -20,7 +19,7 @@ import java.util.List;
 public class FloorService {
 
     private final Logger log = LoggerFactory.getLogger(FloorService.class);
-    
+
     @Inject
     private FloorRepository floorRepository;
 
@@ -38,13 +37,17 @@ public class FloorService {
 
     /**
      *  Get all the floors.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<Floor> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<Floor> findAll(Pageable pageable,Long buildingId) {
         log.debug("Request to get all Floors");
+
+        if (buildingId!=null){
+            floorRepository.findByBuilding(pageable,buildingId);
+        }
         Page<Floor> result = floorRepository.findAll(pageable);
         return result;
     }
@@ -55,7 +58,7 @@ public class FloorService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Floor findOne(Long id) {
         log.debug("Request to get Floor : {}", id);
         Floor floor = floorRepository.findOne(id);
