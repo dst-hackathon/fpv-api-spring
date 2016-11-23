@@ -29,7 +29,7 @@ import java.util.Optional;
 public class DeskResource {
 
     private final Logger log = LoggerFactory.getLogger(DeskResource.class);
-        
+
     @Inject
     private DeskService deskService;
 
@@ -79,15 +79,16 @@ public class DeskResource {
      * GET  /desks : get all the desks.
      *
      * @param pageable the pagination information
+     * @param floorId the floorId information
      * @return the ResponseEntity with status 200 (OK) and the list of desks in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/desks")
     @Timed
-    public ResponseEntity<List<Desk>> getAllDesks(Pageable pageable)
+    public ResponseEntity<List<Desk>> getAllDesks(Pageable pageable,Long floorId)
         throws URISyntaxException {
         log.debug("REST request to get a page of Desks");
-        Page<Desk> page = deskService.findAll(pageable);
+        Page<Desk> page = deskService.findAll(pageable,floorId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/desks");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.List;
 
 /**
  * Service Implementation for managing ChangesetItem.
@@ -20,7 +19,7 @@ import java.util.List;
 public class ChangesetItemService {
 
     private final Logger log = LoggerFactory.getLogger(ChangesetItemService.class);
-    
+
     @Inject
     private ChangesetItemRepository changesetItemRepository;
 
@@ -38,13 +37,19 @@ public class ChangesetItemService {
 
     /**
      *  Get all the changesetItems.
-     *  
+     *
      *  @param pageable the pagination information
+     *  @param changesetId the changesetId information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<ChangesetItem> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<ChangesetItem> findAll(Pageable pageable,Long changesetId) {
         log.debug("Request to get all ChangesetItems");
+
+        if(changesetId!=null){
+            return changesetItemRepository.findByChangesetId(pageable, changesetId);
+        }
+
         Page<ChangesetItem> result = changesetItemRepository.findAll(pageable);
         return result;
     }
@@ -55,7 +60,7 @@ public class ChangesetItemService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public ChangesetItem findOne(Long id) {
         log.debug("Request to get ChangesetItem : {}", id);
         ChangesetItem changesetItem = changesetItemRepository.findOne(id);

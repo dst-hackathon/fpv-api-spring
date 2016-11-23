@@ -29,7 +29,7 @@ import java.util.Optional;
 public class ChangesetResource {
 
     private final Logger log = LoggerFactory.getLogger(ChangesetResource.class);
-        
+
     @Inject
     private ChangesetService changesetService;
 
@@ -79,15 +79,16 @@ public class ChangesetResource {
      * GET  /changesets : get all the changesets.
      *
      * @param pageable the pagination information
+     * @param planId the planId information
      * @return the ResponseEntity with status 200 (OK) and the list of changesets in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/changesets")
     @Timed
-    public ResponseEntity<List<Changeset>> getAllChangesets(Pageable pageable)
+    public ResponseEntity<List<Changeset>> getAllChangesets(Pageable pageable,Long planId)
         throws URISyntaxException {
         log.debug("REST request to get a page of Changesets");
-        Page<Changeset> page = changesetService.findAll(pageable);
+        Page<Changeset> page = changesetService.findAll(pageable,planId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/changesets");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.List;
 
 /**
  * Service Implementation for managing Desk.
@@ -20,7 +19,7 @@ import java.util.List;
 public class DeskService {
 
     private final Logger log = LoggerFactory.getLogger(DeskService.class);
-    
+
     @Inject
     private DeskRepository deskRepository;
 
@@ -38,13 +37,18 @@ public class DeskService {
 
     /**
      *  Get all the desks.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<Desk> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<Desk> findAll(Pageable pageable,Long floorId) {
         log.debug("Request to get all Desks");
+
+        if(floorId!=null){
+            return deskRepository.findByFloorId(pageable, floorId);
+        }
+
         Page<Desk> result = deskRepository.findAll(pageable);
         return result;
     }
@@ -55,7 +59,7 @@ public class DeskService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Desk findOne(Long id) {
         log.debug("Request to get Desk : {}", id);
         Desk desk = deskRepository.findOne(id);
