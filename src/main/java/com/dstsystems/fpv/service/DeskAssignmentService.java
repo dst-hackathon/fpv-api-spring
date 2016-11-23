@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.List;
 
 /**
  * Service Implementation for managing DeskAssignment.
@@ -20,7 +19,7 @@ import java.util.List;
 public class DeskAssignmentService {
 
     private final Logger log = LoggerFactory.getLogger(DeskAssignmentService.class);
-    
+
     @Inject
     private DeskAssignmentRepository deskAssignmentRepository;
 
@@ -38,13 +37,18 @@ public class DeskAssignmentService {
 
     /**
      *  Get all the deskAssignments.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<DeskAssignment> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<DeskAssignment> findAll(Pageable pageable,Long floorId) {
         log.debug("Request to get all DeskAssignments");
+
+        if(floorId != null){
+            return deskAssignmentRepository.findByFloor(pageable,floorId);
+        }
+
         Page<DeskAssignment> result = deskAssignmentRepository.findAll(pageable);
         return result;
     }
@@ -55,7 +59,7 @@ public class DeskAssignmentService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public DeskAssignment findOne(Long id) {
         log.debug("Request to get DeskAssignment : {}", id);
         DeskAssignment deskAssignment = deskAssignmentRepository.findOne(id);

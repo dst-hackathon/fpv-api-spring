@@ -28,7 +28,7 @@ import java.util.Optional;
 public class DeskAssignmentResource {
 
     private final Logger log = LoggerFactory.getLogger(DeskAssignmentResource.class);
-        
+
     @Inject
     private DeskAssignmentService deskAssignmentService;
 
@@ -78,15 +78,16 @@ public class DeskAssignmentResource {
      * GET  /desk-assignments : get all the deskAssignments.
      *
      * @param pageable the pagination information
+     * @param floorId the floorId information
      * @return the ResponseEntity with status 200 (OK) and the list of deskAssignments in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/desk-assignments")
     @Timed
-    public ResponseEntity<List<DeskAssignment>> getAllDeskAssignments(Pageable pageable)
+    public ResponseEntity<List<DeskAssignment>> getAllDeskAssignments(Pageable pageable,Long floorId)
         throws URISyntaxException {
         log.debug("REST request to get a page of DeskAssignments");
-        Page<DeskAssignment> page = deskAssignmentService.findAll(pageable);
+        Page<DeskAssignment> page = deskAssignmentService.findAll(pageable,floorId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/desk-assignments");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
