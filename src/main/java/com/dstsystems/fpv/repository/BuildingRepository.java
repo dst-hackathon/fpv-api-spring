@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.Query;
 @SuppressWarnings("unused")
 public interface BuildingRepository extends JpaRepository<Building,Long> {
 
-    @Query("from Building b where b.plan.id = ?1")
+    @Query("from Building b where b.plan.id = :planId")
     Page<Building> findByPlanId(Pageable pageable, Long planId);
 }
