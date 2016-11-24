@@ -127,6 +127,8 @@
                                 code: null,
                                 x: null,
                                 y: null,
+                                width: null,
+                                height: null,
                                 id: null
                             };
                         }

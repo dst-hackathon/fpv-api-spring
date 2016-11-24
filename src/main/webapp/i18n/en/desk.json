@@ -19,6 +19,8 @@
             "code": "Code",
             "x": "X",
             "y": "Y",
+            "width": "Width",
+            "height": "Height",
             "floor": "Floor"
         }
     }

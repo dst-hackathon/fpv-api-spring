@@ -22,6 +22,8 @@
                     <th jh-sort-by="code"><span data-translate="fpvApp.desk.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="x"><span data-translate="fpvApp.desk.x">X</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="y"><span data-translate="fpvApp.desk.y">Y</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="width"><span data-translate="fpvApp.desk.width">Width</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="height"><span data-translate="fpvApp.desk.height">Height</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="floor.name"><span data-translate="fpvApp.desk.floor">Floor</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -32,6 +34,8 @@
                     <td>{{desk.code}}</td>
                     <td>{{desk.x}}</td>
                     <td>{{desk.y}}</td>
+                    <td>{{desk.width}}</td>
+                    <td>{{desk.height}}</td>
                     <td>
                         <a ui-sref="floor-detail({id:desk.floor.id})">{{desk.floor.name}}</a>
                     </td>

@@ -24,24 +24,29 @@
             <column name="code" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-
-            <column name="x" type="integer">
+            
+            <column name="x" type="double">
                 <constraints nullable="true" />
             </column>
-
-            <column name="y" type="integer">
+            
+            <column name="y" type="double">
                 <constraints nullable="true" />
             </column>
-
+            
+            <column name="width" type="double">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="height" type="double">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="floor_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-    </changeSet>
-    <changeSet id="1" author="mekeerati">
-        <modifyDataType tableName="desk" columnName="x" newDataType="double"/>
-        <modifyDataType tableName="desk" columnName="y" newDataType="double"/>
+        
     </changeSet>
 </databaseChangeLog>

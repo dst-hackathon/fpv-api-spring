@@ -48,6 +48,12 @@ public class DeskResourceIntTest {
     private static final Double DEFAULT_Y = 1D;
     private static final Double UPDATED_Y = 2D;
 
+    private static final Double DEFAULT_WIDTH = 1D;
+    private static final Double UPDATED_WIDTH = 2D;
+
+    private static final Double DEFAULT_HEIGHT = 1D;
+    private static final Double UPDATED_HEIGHT = 2D;
+
     @Inject
     private DeskRepository deskRepository;
 
@@ -87,7 +93,9 @@ public class DeskResourceIntTest {
         Desk desk = new Desk()
                 .code(DEFAULT_CODE)
                 .x(DEFAULT_X)
-                .y(DEFAULT_Y);
+                .y(DEFAULT_Y)
+                .width(DEFAULT_WIDTH)
+                .height(DEFAULT_HEIGHT);
         return desk;
     }
 
@@ -115,6 +123,8 @@ public class DeskResourceIntTest {
         assertThat(testDesk.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testDesk.getX()).isEqualTo(DEFAULT_X);
         assertThat(testDesk.getY()).isEqualTo(DEFAULT_Y);
+        assertThat(testDesk.getWidth()).isEqualTo(DEFAULT_WIDTH);
+        assertThat(testDesk.getHeight()).isEqualTo(DEFAULT_HEIGHT);
     }
 
     @Test
@@ -148,7 +158,9 @@ public class DeskResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(desk.getId().intValue())))
                 .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
                 .andExpect(jsonPath("$.[*].x").value(hasItem(DEFAULT_X.doubleValue())))
-                .andExpect(jsonPath("$.[*].y").value(hasItem(DEFAULT_Y.doubleValue())));
+                .andExpect(jsonPath("$.[*].y").value(hasItem(DEFAULT_Y.doubleValue())))
+                .andExpect(jsonPath("$.[*].width").value(hasItem(DEFAULT_WIDTH.doubleValue())))
+                .andExpect(jsonPath("$.[*].height").value(hasItem(DEFAULT_HEIGHT.doubleValue())));
     }
 
     @Test
@@ -164,7 +176,9 @@ public class DeskResourceIntTest {
             .andExpect(jsonPath("$.id").value(desk.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
             .andExpect(jsonPath("$.x").value(DEFAULT_X.doubleValue()))
-            .andExpect(jsonPath("$.y").value(DEFAULT_Y.doubleValue()));
+            .andExpect(jsonPath("$.y").value(DEFAULT_Y.doubleValue()))
+            .andExpect(jsonPath("$.width").value(DEFAULT_WIDTH.doubleValue()))
+            .andExpect(jsonPath("$.height").value(DEFAULT_HEIGHT.doubleValue()));
     }
 
     @Test
@@ -188,7 +202,9 @@ public class DeskResourceIntTest {
         updatedDesk
                 .code(UPDATED_CODE)
                 .x(UPDATED_X)
-                .y(UPDATED_Y);
+                .y(UPDATED_Y)
+                .width(UPDATED_WIDTH)
+                .height(UPDATED_HEIGHT);
 
         restDeskMockMvc.perform(put("/api/desks")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -202,6 +218,8 @@ public class DeskResourceIntTest {
         assertThat(testDesk.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testDesk.getX()).isEqualTo(UPDATED_X);
         assertThat(testDesk.getY()).isEqualTo(UPDATED_Y);
+        assertThat(testDesk.getWidth()).isEqualTo(UPDATED_WIDTH);
+        assertThat(testDesk.getHeight()).isEqualTo(UPDATED_HEIGHT);
     }
 
     @Test

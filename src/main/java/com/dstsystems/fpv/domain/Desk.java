@@ -29,6 +29,12 @@ public class Desk implements Serializable {
     @Column(name = "y")
     private Double y;
 
+    @Column(name = "width")
+    private Double width;
+
+    @Column(name = "height")
+    private Double height;
+
     @ManyToOne
     private Floor floor;
 
@@ -79,6 +85,32 @@ public class Desk implements Serializable {
         this.y = y;
     }
 
+    public Double getWidth() {
+        return width;
+    }
+
+    public Desk width(Double width) {
+        this.width = width;
+        return this;
+    }
+
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public Desk height(Double height) {
+        this.height = height;
+        return this;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
     public Floor getFloor() {
         return floor;
     }
@@ -119,6 +151,8 @@ public class Desk implements Serializable {
             ", code='" + code + "'" +
             ", x='" + x + "'" +
             ", y='" + y + "'" +
+            ", width='" + width + "'" +
+            ", height='" + height + "'" +
             '}';
     }
 }

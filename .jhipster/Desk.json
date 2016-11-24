@@ -23,6 +23,14 @@
         {
             "fieldName": "y",
             "fieldType": "Double"
+        },
+        {
+            "fieldName": "width",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "height",
+            "fieldType": "Double"
         }
     ],
     "changelogDate": "20161028141858",
