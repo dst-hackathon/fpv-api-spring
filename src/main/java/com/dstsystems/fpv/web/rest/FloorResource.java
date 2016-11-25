@@ -85,7 +85,7 @@ public class FloorResource {
      */
     @GetMapping("/floors")
     @Timed
-    public ResponseEntity<List<Floor>> getAllFloors(Pageable pageable,Long buildingId)
+    public ResponseEntity<List<Floor>> getAllFloors(Pageable pageable,@RequestParam(required = false) Long buildingId)
         throws URISyntaxException {
         log.debug("REST request to get a page of Floors");
         Page<Floor> page = floorService.findAll(pageable,buildingId);
