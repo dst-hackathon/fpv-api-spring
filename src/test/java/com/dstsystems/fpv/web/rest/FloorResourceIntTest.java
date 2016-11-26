@@ -142,7 +142,7 @@ public class FloorResourceIntTest {
         floorRepository.saveAndFlush(floor);
 
         // Get all the floors
-        restFloorMockMvc.perform(get("/api/floors?sort=id,desc"))
+        restFloorMockMvc.perform(get("/api/floors?sort=id,desc&includeImage=true"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(floor.getId().intValue())))
