@@ -1,26 +1,22 @@
 package com.dstsystems.fpv.web.rest;
 
 import com.dstsystems.fpv.FpvApp;
-
 import com.dstsystems.fpv.domain.Floor;
 import com.dstsystems.fpv.repository.FloorRepository;
 import com.dstsystems.fpv.service.FloorService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -28,6 +24,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -113,7 +110,6 @@ public class FloorResourceIntTest {
         assertThat(floors).hasSize(databaseSizeBeforeCreate + 1);
         Floor testFloor = floors.get(floors.size() - 1);
         assertThat(testFloor.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testFloor.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testFloor.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
@@ -147,8 +143,7 @@ public class FloorResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(floor.getId().intValue())))
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-                .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
+                .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)));
     }
 
     @Test
@@ -163,8 +158,7 @@ public class FloorResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(floor.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE));
     }
 
     @Test
@@ -200,7 +194,6 @@ public class FloorResourceIntTest {
         assertThat(floors).hasSize(databaseSizeBeforeUpdate);
         Floor testFloor = floors.get(floors.size() - 1);
         assertThat(testFloor.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testFloor.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testFloor.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
