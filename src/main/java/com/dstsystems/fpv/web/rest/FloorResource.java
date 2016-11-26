@@ -113,6 +113,23 @@ public class FloorResource {
     }
 
     /**
+     * GET  /floors/:id/image : get floor image by id.
+     *
+     * @param id the id of the floor to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the floor, or with status 404 (Not Found)
+     */
+    @GetMapping("/floors/{id}/image")
+    @Timed
+    public ResponseEntity<byte[]> getFloorImage(@PathVariable Long id) {
+        Floor floor = floorService.findOne(id);
+        return Optional.ofNullable(floor)
+            .map(result -> new ResponseEntity<>(
+                result.getImage(),
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
      * DELETE  /floors/:id : delete the "id" floor.
      *
      * @param id the id of the floor to delete

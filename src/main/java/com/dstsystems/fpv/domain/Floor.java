@@ -1,6 +1,7 @@
 package com.dstsystems.fpv.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public class Floor implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Lob
     @Column(name = "image")
     private byte[] image;
