@@ -85,7 +85,7 @@ public class ChangesetItemResource {
      */
     @GetMapping("/changeset-items")
     @Timed
-    public ResponseEntity<List<ChangesetItem>> getAllChangesetItems(Pageable pageable,Long changesetId)
+    public ResponseEntity<List<ChangesetItem>> getAllChangesetItems(Pageable pageable,@RequestParam(required = false) Long changesetId)
         throws URISyntaxException {
         log.debug("REST request to get a page of ChangesetItems");
         Page<ChangesetItem> page = changesetItemService.findAll(pageable,changesetId);
