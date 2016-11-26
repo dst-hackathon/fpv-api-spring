@@ -44,11 +44,12 @@ public class FloorService {
     @Transactional(readOnly = true)
     public Page<Floor> findAll(Pageable pageable,Long buildingId, Boolean includeImage) {
         log.debug("Request to get all Floors");
-
+        Page<Floor> result;
         if (buildingId!=null){
-            floorRepository.findByBuilding(pageable,buildingId);
+            result = floorRepository.findByBuilding(pageable,buildingId);
+        }else {
+            result = floorRepository.findAll(pageable);
         }
-        Page<Floor> result = floorRepository.findAll(pageable);
 
         if(includeImage == false) {
             for(Floor floor : result) {
