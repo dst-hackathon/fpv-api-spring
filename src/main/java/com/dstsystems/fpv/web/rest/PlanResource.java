@@ -2,6 +2,7 @@ package com.dstsystems.fpv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dstsystems.fpv.domain.Plan;
+import com.dstsystems.fpv.domain.enumeration.PlanStatus;
 import com.dstsystems.fpv.service.PlanService;
 import com.dstsystems.fpv.web.rest.util.HeaderUtil;
 import com.dstsystems.fpv.web.rest.util.PaginationUtil;
@@ -91,10 +92,17 @@ public class PlanResource {
      */
     @GetMapping("/plans")
     @Timed
-    public ResponseEntity<List<Plan>> getAllPlans(Pageable pageable)
+    public ResponseEntity<List<Plan>> getAllPlans(Pageable pageable, @RequestParam(required = false) PlanStatus status)
         throws URISyntaxException {
         log.debug("REST request to get a page of Plans");
-        Page<Plan> page = planService.findAll(pageable);
+        
+        Page<Plan> page;
+        if (status != null) {
+        	page = planService.findByStatus(status, pageable);
+        } else {
+        	page = planService.findAll(pageable);
+        }
+        
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/plans");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
