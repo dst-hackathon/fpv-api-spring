@@ -84,7 +84,7 @@ public class DeskAssignmentResource {
      */
     @GetMapping("/desk-assignments")
     @Timed
-    public ResponseEntity<List<DeskAssignment>> getAllDeskAssignments(Pageable pageable,Long floorId)
+    public ResponseEntity<List<DeskAssignment>> getAllDeskAssignments(Pageable pageable,@RequestParam(required = false) Long floorId)
         throws URISyntaxException {
         log.debug("REST request to get a page of DeskAssignments");
         Page<DeskAssignment> page = deskAssignmentService.findAll(pageable,floorId);
