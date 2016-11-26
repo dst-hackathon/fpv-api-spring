@@ -28,7 +28,6 @@ public class Floor implements Serializable {
 
     @Lob
     @Column(name = "image")
-    @JsonIgnore
     private byte[] image;
 
     @Column(name = "image_content_type")
@@ -62,6 +61,7 @@ public class Floor implements Serializable {
         this.name = name;
     }
 
+    @JsonIgnore
     public byte[] getImage() {
         return image;
     }
