@@ -148,4 +148,8 @@ public class PlanService {
 	public Plan getMasterPlan() {
 		return planRepository.findFirstByStatusAndEffectiveDateIsLessThanOrderByEffectiveDateDesc(PlanStatus.APPROVE, LocalDate.now());
 	}
+	
+	public Page<Plan> findByStatus(PlanStatus planStatus, Pageable pageable) {
+		return planRepository.findAllByStatus(planStatus, pageable);
+	}
 }
