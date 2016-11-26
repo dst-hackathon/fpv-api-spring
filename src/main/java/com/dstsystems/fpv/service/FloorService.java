@@ -42,13 +42,21 @@ public class FloorService {
      *  @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<Floor> findAll(Pageable pageable,Long buildingId) {
+    public Page<Floor> findAll(Pageable pageable,Long buildingId, Boolean includeImage) {
         log.debug("Request to get all Floors");
 
         if (buildingId!=null){
             floorRepository.findByBuilding(pageable,buildingId);
         }
         Page<Floor> result = floorRepository.findAll(pageable);
+
+        if(includeImage == false) {
+            for(Floor floor : result) {
+                floor.setImage(null);
+                floor.setImageContentType(null);
+            }
+        }
+
         return result;
     }
 

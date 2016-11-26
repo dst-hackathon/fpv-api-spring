@@ -85,10 +85,11 @@ public class FloorResource {
      */
     @GetMapping("/floors")
     @Timed
-    public ResponseEntity<List<Floor>> getAllFloors(Pageable pageable,@RequestParam(required = false) Long buildingId)
+    public ResponseEntity<List<Floor>> getAllFloors(Pageable pageable,@RequestParam(required = false) Long buildingId,
+                                                    @RequestParam(defaultValue = "false", required = false) Boolean includeImage)
         throws URISyntaxException {
         log.debug("REST request to get a page of Floors");
-        Page<Floor> page = floorService.findAll(pageable,buildingId);
+        Page<Floor> page = floorService.findAll(pageable,buildingId, includeImage);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/floors");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
