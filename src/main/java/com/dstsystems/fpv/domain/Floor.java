@@ -61,7 +61,6 @@ public class Floor implements Serializable {
         this.name = name;
     }
 
-    @JsonIgnore
     public byte[] getImage() {
         return image;
     }
