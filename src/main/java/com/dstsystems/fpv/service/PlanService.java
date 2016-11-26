@@ -89,7 +89,7 @@ public class PlanService {
     public Plan cloneLatestApprovedPlan(Plan plan) {
         log.debug("Request to clone latest approved plan");
         Plan newPlan = new Plan();
-        Plan latestPlan = planRepository.findFirstByStatusAndEffectiveDateIsLessThanOrderByEffectiveDateDesc(PlanStatus.APPROVE, LocalDate.now());
+        Plan latestPlan = getMasterPlan();
 
         log.debug("Latest approved plan id : {}, effective on : {}", latestPlan.getId(), latestPlan.getEffectiveDate());
 
@@ -139,4 +139,13 @@ public class PlanService {
 
         return this.save(newPlan);
     }
+
+    /**
+     * Returns the current master plan.
+     * 
+     * @return master plan.
+     */
+	public Plan getMasterPlan() {
+		return planRepository.findFirstByStatusAndEffectiveDateIsLessThanOrderByEffectiveDateDesc(PlanStatus.APPROVE, LocalDate.now());
+	}
 }

@@ -130,5 +130,17 @@ public class PlanResource {
         planService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("plan", id.toString())).build();
     }
-
+    
+    @GetMapping("/plans/master")
+    @Timed
+    public ResponseEntity<Plan> getMasterPlan() {
+    	log.debug("REST request to get a master plan");
+    	Plan plan = planService.getMasterPlan();
+    	
+    	return Optional.ofNullable(plan)
+    		.map(result -> new ResponseEntity<>(
+				result,
+				HttpStatus.OK))
+    		.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }
