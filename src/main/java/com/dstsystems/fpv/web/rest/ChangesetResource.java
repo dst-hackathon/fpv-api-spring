@@ -2,6 +2,7 @@ package com.dstsystems.fpv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dstsystems.fpv.domain.Changeset;
+import com.dstsystems.fpv.repository.ChangesetRepository;
 import com.dstsystems.fpv.service.ChangesetService;
 import com.dstsystems.fpv.web.rest.util.HeaderUtil;
 import com.dstsystems.fpv.web.rest.util.PaginationUtil;
@@ -18,6 +19,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +35,8 @@ public class ChangesetResource {
 
     @Inject
     private ChangesetService changesetService;
+    @Inject
+    private ChangesetRepository changesetRepository;
 
     /**
      * POST  /changesets : Create a new changeset.
@@ -104,6 +109,27 @@ public class ChangesetResource {
     public ResponseEntity<Changeset> getChangeset(@PathVariable Long id) {
         log.debug("REST request to get Changeset : {}", id);
         Changeset changeset = changesetService.findOne(id);
+        return Optional.ofNullable(changeset)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * GET  /changesets/search : get the "id" changeset.
+     *
+     * @param effectiveDate the date of the changeset to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the changeset, or with status 404 (Not Found)
+     */
+    @GetMapping("/changesets/search")
+    @Timed
+    public ResponseEntity<Changeset> getChangeset(@RequestParam String effectiveDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(effectiveDate, formatter);
+
+        log.debug("REST request to get Changeset : {}", date);
+        Changeset changeset = changesetRepository.findByEffectiveDate(date);
         return Optional.ofNullable(changeset)
             .map(result -> new ResponseEntity<>(
                 result,

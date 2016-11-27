@@ -1,21 +1,19 @@
 package com.dstsystems.fpv.web.rest;
 
 import com.dstsystems.fpv.FpvApp;
-
 import com.dstsystems.fpv.domain.Changeset;
 import com.dstsystems.fpv.domain.Plan;
+import com.dstsystems.fpv.domain.enumeration.ChangesetStatus;
 import com.dstsystems.fpv.repository.ChangesetRepository;
 import com.dstsystems.fpv.service.ChangesetService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,10 +28,9 @@ import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import com.dstsystems.fpv.domain.enumeration.ChangesetStatus;
 /**
  * Test class for the ChangesetResource REST controller.
  *
@@ -73,6 +70,7 @@ public class ChangesetResourceIntTest {
         MockitoAnnotations.initMocks(this);
         ChangesetResource changesetResource = new ChangesetResource();
         ReflectionTestUtils.setField(changesetResource, "changesetService", changesetService);
+        ReflectionTestUtils.setField(changesetResource, "changesetRepository", changesetRepository);
         this.restChangesetMockMvc = MockMvcBuilders.standaloneSetup(changesetResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -180,6 +178,21 @@ public class ChangesetResourceIntTest {
 
         // Get the changeset
         restChangesetMockMvc.perform(get("/api/changesets/{id}", changeset.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(changeset.getId().intValue()))
+            .andExpect(jsonPath("$.effectiveDate").value(DEFAULT_EFFECTIVE_DATE.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+    }
+
+    @Test
+    @Transactional
+    public void getChangesetByEffectiveDate() throws Exception {
+        // Initialize the database
+        changesetRepository.saveAndFlush(changeset);
+
+        // Get the changeset
+        restChangesetMockMvc.perform(get("/api/changesets/search?effectiveDate=1970-01-01"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(changeset.getId().intValue()))
