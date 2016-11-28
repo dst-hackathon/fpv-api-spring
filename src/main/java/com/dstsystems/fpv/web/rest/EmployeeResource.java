@@ -29,7 +29,7 @@ import java.util.Optional;
 public class EmployeeResource {
 
     private final Logger log = LoggerFactory.getLogger(EmployeeResource.class);
-        
+
     @Inject
     private EmployeeService employeeService;
 
@@ -103,6 +103,24 @@ public class EmployeeResource {
     public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
         log.debug("REST request to get Employee : {}", id);
         Employee employee = employeeService.findOne(id);
+        return Optional.ofNullable(employee)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * GET  /employees/search : get the "id" employee.
+     *
+     * @param code the code of the employee to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the employee, or with status 404 (Not Found)
+     */
+    @GetMapping("/employees/search")
+    @Timed
+    public ResponseEntity<Employee> search(@RequestParam String code) {
+        log.debug("REST request to get Employee : {}", code);
+        Employee employee = employeeService.findByCode(code);
         return Optional.ofNullable(employee)
             .map(result -> new ResponseEntity<>(
                 result,
