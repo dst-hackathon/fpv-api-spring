@@ -111,14 +111,14 @@ public class EmployeeResource {
     }
 
     /**
-     * GET  /employees/search : get the "id" employee.
+     * GET  /employees/search/code : get the "id" employee.
      *
      * @param code the code of the employee to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the employee, or with status 404 (Not Found)
      */
-    @GetMapping("/employees/search")
+    @GetMapping("/employees/search/code")
     @Timed
-    public ResponseEntity<Employee> search(@RequestParam String code) {
+    public ResponseEntity<Employee> searchByCode(@RequestParam String code) {
         log.debug("REST request to get Employee : {}", code);
         Employee employee = employeeService.findByCode(code);
         return Optional.ofNullable(employee)
@@ -126,6 +126,21 @@ public class EmployeeResource {
                 result,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    
+    /**
+     * GET /employees/search : search employee.
+     * 
+     * @param name the name of the employee to search
+     * @return the ResponseEntity with status 200 (OK) and the list of employees in body
+     */
+    @GetMapping("employees/search")
+    @Timed
+    public ResponseEntity<List<Employee>> search(@RequestParam(required = false) String name)
+        throws URISyntaxException {
+        log.debug("REST request to search Employees");
+        List<Employee> employees = employeeService.search(name);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     /**

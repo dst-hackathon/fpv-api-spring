@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -73,5 +75,15 @@ public class EmployeeService {
 
     public Employee findByCode(String code) {
         return employeeRepository.findByCode(code);
+    }
+
+    /**
+     * Search employees
+     * 
+     * @param name
+     * @return list of employee matched with search criteria
+     */
+    public List<Employee> search(String name) {
+        return employeeRepository.search(name);
     }
 }
