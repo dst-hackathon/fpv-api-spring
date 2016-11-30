@@ -166,6 +166,7 @@ public class EmployeeResource {
     	return Optional.ofNullable(employee)
             .map(result -> ResponseEntity.ok()
         		.header(HttpHeaders.CONTENT_TYPE, result.getImageContentType())
+        		.header(HttpHeaders.CACHE_CONTROL, "no-transform, public, max-age=86400")
         		.body(result.getImage()))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
