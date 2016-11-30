@@ -2,7 +2,6 @@ package com.dstsystems.fpv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dstsystems.fpv.domain.Employee;
-import com.dstsystems.fpv.domain.FloorDTO;
 import com.dstsystems.fpv.service.EmployeeService;
 import com.dstsystems.fpv.web.rest.util.HeaderUtil;
 import com.dstsystems.fpv.web.rest.util.PaginationUtil;

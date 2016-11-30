@@ -2,7 +2,6 @@ package com.dstsystems.fpv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dstsystems.fpv.domain.Floor;
-import com.dstsystems.fpv.domain.FloorDTO;
 import com.dstsystems.fpv.service.FloorService;
 import com.dstsystems.fpv.web.rest.util.HeaderUtil;
 import com.dstsystems.fpv.web.rest.util.PaginationUtil;
@@ -121,12 +120,15 @@ public class FloorResource {
      */
     @GetMapping("/floors/{id}/image")
     @Timed
-    public ResponseEntity<FloorDTO> getFloorImage(@PathVariable Long id) {
+    public ResponseEntity<byte[]> getFloorImage(@PathVariable Long id) {
         Floor floor = floorService.findOne(id);
 
         return Optional.ofNullable(floor)
-            .map(result -> new ResponseEntity<>(new FloorDTO(result), HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	        .map(result -> ResponseEntity.ok()
+	    		.header(HttpHeaders.CONTENT_TYPE, result.getImageContentType())
+	    		.header(HttpHeaders.CACHE_CONTROL, "no-transform, public, max-age=86400")
+	    		.body(result.getImage()))
+	        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
