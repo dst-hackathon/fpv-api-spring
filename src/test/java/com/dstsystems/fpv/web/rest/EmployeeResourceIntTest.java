@@ -150,7 +150,6 @@ public class EmployeeResourceIntTest {
         assertThat(testEmployee.getNickname()).isEqualTo(DEFAULT_NICKNAME);
         assertThat(testEmployee.getBusinessUnit()).isEqualTo(DEFAULT_BUSINESS_UNIT);
         assertThat(testEmployee.getPosition()).isEqualTo(DEFAULT_POSITION);
-        assertThat(testEmployee.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testEmployee.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testEmployee.getWork()).isEqualTo(DEFAULT_WORK);
         assertThat(testEmployee.getMobile()).isEqualTo(DEFAULT_MOBILE);
@@ -229,7 +228,6 @@ public class EmployeeResourceIntTest {
                 .andExpect(jsonPath("$.[*].businessUnit").value(hasItem(DEFAULT_BUSINESS_UNIT.toString())))
                 .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION.toString())))
                 .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-                .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
                 .andExpect(jsonPath("$.[*].work").value(hasItem(DEFAULT_WORK.toString())))
                 .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE.toString())))
                 .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
@@ -253,7 +251,6 @@ public class EmployeeResourceIntTest {
             .andExpect(jsonPath("$.businessUnit").value(DEFAULT_BUSINESS_UNIT.toString()))
             .andExpect(jsonPath("$.position").value(DEFAULT_POSITION.toString()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.work").value(DEFAULT_WORK.toString()))
             .andExpect(jsonPath("$.mobile").value(DEFAULT_MOBILE.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
@@ -305,7 +302,6 @@ public class EmployeeResourceIntTest {
         assertThat(testEmployee.getNickname()).isEqualTo(UPDATED_NICKNAME);
         assertThat(testEmployee.getBusinessUnit()).isEqualTo(UPDATED_BUSINESS_UNIT);
         assertThat(testEmployee.getPosition()).isEqualTo(UPDATED_POSITION);
-        assertThat(testEmployee.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testEmployee.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testEmployee.getWork()).isEqualTo(UPDATED_WORK);
         assertThat(testEmployee.getMobile()).isEqualTo(UPDATED_MOBILE);

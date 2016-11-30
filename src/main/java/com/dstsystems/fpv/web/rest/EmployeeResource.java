@@ -2,6 +2,7 @@ package com.dstsystems.fpv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dstsystems.fpv.domain.Employee;
+import com.dstsystems.fpv.domain.FloorDTO;
 import com.dstsystems.fpv.service.EmployeeService;
 import com.dstsystems.fpv.web.rest.util.HeaderUtil;
 import com.dstsystems.fpv.web.rest.util.PaginationUtil;
@@ -155,6 +156,18 @@ public class EmployeeResource {
         log.debug("REST request to delete Employee : {}", id);
         employeeService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("employee", id.toString())).build();
+    }
+    
+    @GetMapping("/employees/{id}/image")
+    @Timed
+    public ResponseEntity<byte[]> getEmployeeImage(@PathVariable Long id) {
+    	Employee employee = employeeService.findOne(id);
+    	
+    	return Optional.ofNullable(employee)
+            .map(result -> ResponseEntity.ok()
+        		.header(HttpHeaders.CONTENT_TYPE, result.getImageContentType())
+        		.body(result.getImage()))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

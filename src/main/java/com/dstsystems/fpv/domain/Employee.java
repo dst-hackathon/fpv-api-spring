@@ -3,6 +3,9 @@ package com.dstsystems.fpv.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -40,6 +43,7 @@ public class Employee implements Serializable {
     @Column(name = "position")
     private String position;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Lob
     @Column(name = "image")
     private byte[] image;
