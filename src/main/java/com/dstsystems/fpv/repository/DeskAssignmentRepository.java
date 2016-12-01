@@ -15,4 +15,7 @@ public interface DeskAssignmentRepository extends JpaRepository<DeskAssignment,L
 
     @Query("from DeskAssignment d where d.desk.floor.id = :floorId")
     Page<DeskAssignment> findByFloor(Pageable pageable, @Param("floorId") Long floorId);
+
+    @Query("from DeskAssignment d where d.plan.id = :planId and d.employee.id = :employeeId")
+	DeskAssignment findByEmployeeAndPlan(@Param("employeeId") Long employeeId, @Param("planId") Long planId);
 }

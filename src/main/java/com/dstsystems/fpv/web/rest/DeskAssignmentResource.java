@@ -1,7 +1,9 @@
 package com.dstsystems.fpv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.dstsystems.fpv.domain.Desk;
 import com.dstsystems.fpv.domain.DeskAssignment;
+import com.dstsystems.fpv.repository.DeskAssignmentRepository;
 import com.dstsystems.fpv.service.DeskAssignmentService;
 import com.dstsystems.fpv.web.rest.util.HeaderUtil;
 import com.dstsystems.fpv.web.rest.util.PaginationUtil;
@@ -31,6 +33,9 @@ public class DeskAssignmentResource {
 
     @Inject
     private DeskAssignmentService deskAssignmentService;
+    
+    @Inject
+    private DeskAssignmentRepository deskAssignmentRepository;
 
     /**
      * POST  /desk-assignments : Create a new deskAssignment.
@@ -123,5 +128,16 @@ public class DeskAssignmentResource {
         deskAssignmentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("deskAssignment", id.toString())).build();
     }
-
+    
+    @GetMapping("/desk-assignments/search/desk")
+    @Timed
+    public ResponseEntity<Desk> getCurrentDeskAssignment(@RequestParam Long employeeId, @RequestParam Long planId) {
+    	DeskAssignment deskAssignment = deskAssignmentRepository.findByEmployeeAndPlan(employeeId, planId);
+    	
+    	return new ResponseEntity<>(
+			Optional.ofNullable(deskAssignment)
+				.map(result -> result.getDesk())
+				.orElse(null),
+			HttpStatus.OK);
+    }
 }
