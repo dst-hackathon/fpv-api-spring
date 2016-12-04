@@ -36,7 +36,7 @@
         {
             "fieldName": "status",
             "fieldType": "ChangesetItemStatus",
-            "fieldValues": "ACCEPT,DENY"
+            "fieldValues": "ACCEPT,DENY,DRAFT"
         }
     ],
     "changelogDate": "20161123155524",
