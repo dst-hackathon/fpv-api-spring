@@ -81,6 +81,25 @@ public class ChangesetResource {
     }
 
     /**
+     * PUT  /changesets/:id/approve : Approve an existing changeset.
+     *
+     * @param id the changeset id to approve
+     * @return the ResponseEntity with status 200 (OK) and with body the updated changeset,
+     * or with status 400 (Bad Request) if the changeset is not valid,
+     * or with status 500 (Internal Server Error) if the changeset couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PutMapping("/changesets/{id}/approve")
+    @Timed
+    public ResponseEntity<Changeset> approveChangeset(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to approve Changeset : {}", id);
+        Changeset result = changesetService.approve(id);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert("changeset", id.toString()))
+            .body(result);
+    }
+
+    /**
      * GET  /changesets : get all the changesets.
      *
      * @param pageable the pagination information

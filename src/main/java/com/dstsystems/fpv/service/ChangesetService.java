@@ -1,7 +1,11 @@
 package com.dstsystems.fpv.service;
 
 import com.dstsystems.fpv.domain.Changeset;
+import com.dstsystems.fpv.domain.ChangesetItem;
+import com.dstsystems.fpv.domain.DeskAssignment;
+import com.dstsystems.fpv.domain.enumeration.ChangesetStatus;
 import com.dstsystems.fpv.repository.ChangesetRepository;
+import com.dstsystems.fpv.repository.DeskAssignmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,6 +26,8 @@ public class ChangesetService {
 
     @Inject
     private ChangesetRepository changesetRepository;
+    @Inject
+    private DeskAssignmentRepository deskAssignmentRepository;
 
     /**
      * Save a changeset.
@@ -74,5 +80,28 @@ public class ChangesetService {
     public void delete(Long id) {
         log.debug("Request to delete Changeset : {}", id);
         changesetRepository.delete(id);
+    }
+
+    @Transactional
+    public Changeset approve(Long id) {
+        Changeset changeset = changesetRepository.findOne(id);
+
+        for (ChangesetItem item : changeset.getChangesetItems()) {
+            DeskAssignment existingAssign = deskAssignmentRepository.findByDeskAndEmployee(item.getFromDesk(),item.getEmployee());
+
+            if (existingAssign==null){
+                existingAssign = new DeskAssignment();
+                existingAssign.setEmployee(item.getEmployee());
+                existingAssign.setPlan(item.getChangeset().getPlan());
+            }
+
+            existingAssign.setDesk(item.getToDesk());
+            deskAssignmentRepository.save(existingAssign);
+        };
+
+        changeset.setStatus(ChangesetStatus.COMPLETE);
+        changesetRepository.save(changeset);
+
+        return changeset;
     }
 }
