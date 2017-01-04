@@ -19,7 +19,7 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://104.199.215.118:3306/fpv
+        url: jdbc:mysql://hackathon.dst-thailand.com:3306/fpv
         name:
         username: fpv
         password: hackathon2016
